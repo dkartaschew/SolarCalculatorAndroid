@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">SolarCalculatorAndroid</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">TextView</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">SolarCalculator</string>
 
