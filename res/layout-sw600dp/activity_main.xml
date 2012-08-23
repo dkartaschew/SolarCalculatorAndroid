@@ -158,7 +158,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
             android:layout_toRightOf="@+id/TextViewPanels"
-            android:numColumns="5"
+            android:numColumns="4"
             android:stretchColumns="0,1,2,3,4"
             android:visibility="visible" >
 
@@ -195,10 +195,6 @@
                     android:layout_gravity="center"
                     android:text="@string/columnDirection" />
 
-                <TextView
-                    android:id="@+id/columnPanelRemove"
-                    android:layout_height="wrap_content"
-                    android:text="" />
             </TableRow>
         </TableLayout>
 
