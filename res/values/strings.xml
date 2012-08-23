@@ -1,17 +1,13 @@
 <resources>
 
     <string name="app_name">SolarCalculatorAndroid</string>
-    <string name="Add">Add</string>
-    <string name="menu_settings">Settings</string>
+
     <string name="title_activity_main">SolarCalculator</string>
     
     <string name="menuNew">New</string>
     <string name="menuRetrieve">Retrieve</string>
     <string name="menuQuit">Quit</string>
-    
-    <string name="buttonStart">Start Calculations</string>
-    <string name="buttonRetrieve">Retrieve Calculations</string>
-    <string name="buttonQuit">Quit</string>
+   
     
     <string name="labelDetails">Details</string>
 	<string name="Calculate">Calculate</string>
@@ -24,4 +20,10 @@
 	<string name="wirelength">Wire Length</string>
 	<string name="wireefficiency">Wire Efficiency</string>
 	<string name="setuppanels">Panels</string>
+    <string name="add">Add Panel</string>
+    
+    <string name="columnName">Name</string>
+    <string name="columnManufacturer">Manufacturer</string>
+    <string name="columnWattage">Wattage</string>
+    <string name="columnDirection">Direction</string>
 </resources>

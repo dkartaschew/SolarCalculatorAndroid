@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:gravity="fill_vertical"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -45,7 +47,7 @@
         android:id="@+id/layoutSetupLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp" >
+        android:layout_marginBottom="25dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +59,10 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="false"
             android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:inputType="text" />
 
         <ImageButton
@@ -71,7 +76,8 @@
     <LinearLayout
         android:id="@+id/layoutElectrical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,37 +125,104 @@
             android:ems="10"
             android:inputType="numberDecimal" />
     </LinearLayout>
-    
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/layoutPanelSetup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dip"
+        android:layout_weight="1.0" >
 
         <TextView
+            android:id="@+id/TextViewPanels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tableViewSolarPanels"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:text="@string/setuppanels" />
 
-        <GridView
+        <!--
+            <GridView
             android:id="@+id/gridViewSolarPanels"
             android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/TextViewPanels"
+            android:numColumns="5" />
+        -->
+
+        <TableLayout
+            android:id="@+id/tableViewSolarPanels"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="5" >
-        </GridView>
-        
-    </LinearLayout>
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/TextViewPanels"
+            android:numColumns="5"
+            android:stretchColumns="0,1,2,3,4"
+            android:visibility="visible" >
+
+            <TableRow
+                android:id="@+id/tablePanelHeader"
+                style="@style/AppTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#202020"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/columnPanelName"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/columnName" />
+
+                <TextView
+                    android:id="@+id/columnPanelManufacturer"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/columnManufacturer" />
+
+                <TextView
+                    android:id="@+id/columnPanelWattage"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/columnWattage" />
+
+                <TextView
+                    android:id="@+id/columnPanelDirection"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/columnDirection" />
+
+                <TextView
+                    android:id="@+id/columnPanelRemove"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/buttonAddPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/add" />
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:gravity="bottom|right"
+        android:showDividers="none" >
 
         <Button
             android:id="@+id/buttonRetrieve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:text="@string/Calculate" />
-        
     </LinearLayout>
 
 </LinearLayout>
