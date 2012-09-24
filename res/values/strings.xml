@@ -7,9 +7,6 @@
     <string name="menuNew">New</string>
     <string name="menuRetrieve">Retrieve</string>
     <string name="menuQuit">Quit</string>
-   
-    
-    <string name="labelDetails">Details</string>
 	<string name="Calculate">Calculate</string>
 	<string name="setupname">Setup Name</string>
 	<string name="setupdescription">Description</string>
@@ -26,4 +23,7 @@
     <string name="columnManufacturer">Manufacturer</string>
     <string name="columnWattage">Wattage</string>
     <string name="columnDirection">Direction</string>
+    <string name="next">Next</string>
+    <string name="previous">Back</string>
+    <string name="close">Close</string>
 </resources>

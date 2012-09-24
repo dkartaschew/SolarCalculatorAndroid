@@ -1,8 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayoutMainContent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:gravity="fill_vertical"
+    android:gravity="bottom"
     android:orientation="vertical" >
+    
+    <ViewFlipper
+        android:id="@+id/viewFlipperWizard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ViewFlipper>
+    
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/LinearLayoutNavButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom|right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/previous"
+            android:textSize="@dimen/ButtonDefault" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textSize="@dimen/ButtonDefault" />
+
+        <Button
+            android:id="@+id/buttonClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:textSize="@dimen/ButtonDefault" />
+        
+    </LinearLayout>
+
+    
 </LinearLayout>
