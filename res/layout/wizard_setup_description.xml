@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewSetupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/setupTitle"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/textViewSetupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/setupName"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editTextSetupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:id="@+id/textViewSetupDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/setupDescription"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editTextSetupDescription"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp" />
+
+</LinearLayout>

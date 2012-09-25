@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewLocationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/locationTitle"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewLocationPredefined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/locationDescription" />
+
+            <Spinner
+                android:id="@+id/spinnerLocationPredefined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/textViewLocationDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/locationName" />
+
+            <EditText
+                android:id="@+id/editTextLocationName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textViewLongitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/locationLongitude" />
+
+            <EditText
+                android:id="@+id/editTextLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none" />
+
+            <TextView
+                android:id="@+id/textViewLatitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/locationLatitude" />
+
+            <EditText
+                android:id="@+id/editTextLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none" />
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,35 +1,31 @@
 <resources>
 
-    <string name="app_name">SolarCalculatorAndroid</string>
+    <string name="app_name">Solar Calculator for Android</string>
 
     <string name="title_activity_main">SolarCalculator</string>
     
     <string name="menuNew">New</string>
     <string name="menuRetrieve">Retrieve</string>
     <string name="menuQuit">Quit</string>
-	<string name="Calculate">Calculate</string>
-	<string name="setupname">Setup Name</string>
-	<string name="setupdescription">Description</string>
-	<string name="setuplocation">Location</string>
-	<string name="useGPS">Utilise GPS for Location</string>
-	<string name="inverter">Inverter</string>
-	<string name="useInverter">Find Inverter</string>
-	<string name="wirelength">Wire Length</string>
-	<string name="wireefficiency">Wire Efficiency</string>
-	<string name="setuppanels">Panels</string>
-    <string name="add">Add Panel</string>
-    
-    <string name="columnName">Name</string>
-    <string name="columnManufacturer">Manufacturer</string>
-    <string name="columnWattage">Wattage</string>
-    <string name="columnDirection">Direction</string>
+
     <string name="next">Next</string>
     <string name="previous">Back</string>
     <string name="close">Close</string>
+
     <string name="applicationTitle">Solar Energy Calculator</string>
     <string name="applicationBlurb">A simple Solar Power Calculator for domestic installations.</string>
     <string name="applicationCopyright">Copyright 2012, Team Anonymous (QUT)</string>
     <string name="applicationLicence">Released under the GPL v3.</string>
+
     <string name="applicationFinishTitle">Thank You</string>
     <string name="applicationFinishText">Thank you for using the Solar Energey Calculator.\nIf you have any questions please do not hesitate to contact the development team.</string>
+    
+    <string name="setupTitle">Setup Description</string>
+	<string name="setupName">Name</string>
+	<string name="setupDescription">Description</string>
+	<string name="locationTitle">Location</string>
+	<string name="locationDescription">Predefined Locations</string>
+	<string name="locationLongitude">Longitude</string>
+	<string name="locationLatitude">Latitude</string>
+	<string name="locationName">Name</string>
 </resources>
