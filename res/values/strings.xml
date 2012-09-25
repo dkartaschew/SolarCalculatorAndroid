@@ -26,4 +26,10 @@
     <string name="next">Next</string>
     <string name="previous">Back</string>
     <string name="close">Close</string>
+    <string name="applicationTitle">Solar Energy Calculator</string>
+    <string name="applicationBlurb">A simple Solar Power Calculator for domestic installations.</string>
+    <string name="applicationCopyright">Copyright 2012, Team Anonymous (QUT)</string>
+    <string name="applicationLicence">Released under the GPL v3.</string>
+    <string name="applicationFinishTitle">Thank You</string>
+    <string name="applicationFinishText">Thank you for using the Solar Energey Calculator.\nIf you have any questions please do not hesitate to contact the development team.</string>
 </resources>
