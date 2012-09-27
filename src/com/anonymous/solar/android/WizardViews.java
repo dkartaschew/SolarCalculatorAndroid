@@ -1,6 +1,5 @@
 package com.anonymous.solar.android;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -32,7 +31,8 @@ public abstract class WizardViews {
 	public abstract boolean callbackDispose(boolean validateInput);
 
 	protected void setView(final MainActivity parent, final int layout){
-		LayoutInflater inflater = (LayoutInflater)parent.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		//LayoutInflater inflater = (LayoutInflater)parent.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = parent.getLayoutInflater();
 	    View viewLoader=(View)inflater.inflate(layout, null);
 	    parent.getWizard().addView(viewLoader);
 	}

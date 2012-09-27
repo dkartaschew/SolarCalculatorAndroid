@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="TextHeader">18dp</dimen>
-    <dimen name="ButtonDefault">24dp</dimen>
+    <dimen name="ButtonDefault">16dp</dimen>
     <dimen name="ButtonSmall">10dp</dimen>
 </resources>
