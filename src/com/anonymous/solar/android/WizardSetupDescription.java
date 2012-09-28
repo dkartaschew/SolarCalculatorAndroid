@@ -87,7 +87,7 @@ public class WizardSetupDescription extends WizardViews {
 			}
 		}
 
-		SolarSetup global = parent.getSolarSetup();
+		SolarSetup global = this.parent.getSolarSetup();
 		if (global != null) {
 			// Store the name and description fields.
 			try {
@@ -100,6 +100,8 @@ public class WizardSetupDescription extends WizardViews {
 				new SolarAlertDialog().displayAlert(parent, "Invalid Parameter, please ensure a name is present");
 				name.requestFocus();
 				return false;
+			} catch (Exception e){
+				e.printStackTrace();
 			}
 		}
 		return true;

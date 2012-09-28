@@ -18,14 +18,25 @@
     <string name="applicationLicence">Released under the GPL v3.</string>
 
     <string name="applicationFinishTitle">Thank You</string>
-    <string name="applicationFinishText">Thank you for using the Solar Energey Calculator.\nIf you have any questions please do not hesitate to contact the development team.</string>
+    <string name="applicationFinishText">Thank you for using the Solar Energy Calculator.\nIf you have any questions please do not hesitate to contact the development team.</string>
     
     <string name="setupTitle">Setup Description</string>
 	<string name="setupName">Name</string>
 	<string name="setupDescription">Description</string>
+	
 	<string name="locationTitle">Location</string>
 	<string name="locationDescription">Predefined Locations</string>
 	<string name="locationLongitude">Longitude</string>
 	<string name="locationLatitude">Latitude</string>
 	<string name="locationName">Name</string>
+	<string name="locationMapType">Map View</string>
+	<string name="locationMapSatellite">Satellite</string>
+	<string name="LocationMapStreet">Street</string>
+	<string name="locationMapTraffic">Traffic</string>
+	
+	<string name="usageTitle">Customer Usage</string>
+	<string name="usageDailyAverage">Daily Average Usage (kWh):</string>
+	<string name="usageDayTime">Day Time Hourly Usage (kWh):</string>
+	<string name="usageMonthly">Monthly Usage (kWh):</string>
+	<string name="usageHowTo">Please enter only one amount that best defines you average usage on either an hourly basis, daily basis or monthly basis</string>
 </resources>

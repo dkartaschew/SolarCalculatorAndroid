@@ -12,7 +12,7 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/locationTitle"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <View
         android:id="@+id/separator"
@@ -22,11 +22,11 @@
 
     <LinearLayout
         android:id="@+id/locationLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
@@ -91,7 +91,44 @@
                 android:focusableInTouchMode="false"
                 android:inputType="none" />
         </LinearLayout>
-        
+
+        <LinearLayout
+            android:id="@+id/locationLayoutMap"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="right"
+            android:orientation="vertical" >
+
+            <com.google.android.maps.MapView
+                android:id="@+id/mapView"
+                style="@style/mapView"
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:apiKey="0_T9Ob_jBFT4WlMFT7qcAH2NIOkHj2Gmixce7HQ"
+                android:clickable="true"
+                android:enabled="true" />
+
+            <LinearLayout
+                android:id="@+id/locationLayoutMapSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right|bottom"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textViewMapType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/locationMapType" />
+
+                <Spinner
+                    android:id="@+id/spinnerMapType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

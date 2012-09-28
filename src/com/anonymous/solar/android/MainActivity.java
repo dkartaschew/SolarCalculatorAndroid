@@ -1,9 +1,16 @@
 package com.anonymous.solar.android;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
+import com.anonymous.solar.shared.LocationData;
+import com.anonymous.solar.shared.LocationDataException;
 import com.anonymous.solar.shared.SolarSetup;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +26,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -28,12 +36,12 @@ import android.widget.ViewFlipper;
  * @author 07627505 Darran Kartaschew
  * @version 1.0
  */
-public class MainActivity extends Activity {
+public class MainActivity extends MapActivity {
 
 	// Private state fields.
 	private int WizardViewCount = 0;
 	private int WizardViewMember = 0;
-	
+
 	// Wizard components
 	private ViewFlipper wizardViewFlipper;
 	private Button closeButton;
@@ -45,7 +53,7 @@ public class MainActivity extends Activity {
 	private OnClickListener nextButtonListener;
 	private OnClickListener closeButtonListener;
 
-	// Animations 
+	// Animations
 	private Animation animFlipInForward;
 	private Animation animFlipOutForward;
 	private Animation animFlipInBackward;
@@ -70,7 +78,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		addViews();
 		setButtonActions();
-		solarSetup = new SolarSetup();
+		if (solarSetup == null) {
+			solarSetup = new SolarSetup();
+		}
 	}
 
 	/**
@@ -105,6 +115,8 @@ public class MainActivity extends Activity {
 				return true;
 			}
 
+			
+
 		};
 		gestureDetector = new GestureDetector(simpleOnGestureListener);
 
@@ -112,6 +124,7 @@ public class MainActivity extends Activity {
 		wizardViews.add(new WizardWelcome(this));
 		wizardViews.add(new WizardSetupDescription(this));
 		wizardViews.add(new WizardLocation(this));
+		wizardViews.add(new WizardUsage(this));
 		wizardViews.add(new WizardFinish(this));
 
 		// Set the number of views we have for button navigation.
@@ -177,10 +190,7 @@ public class MainActivity extends Activity {
 	public SolarSetup getSolarSetup() {
 		return solarSetup;
 	}
-	
 
-
-	
 	/********************************************************************
 	 * Event Handlers
 	 ********************************************************************/
@@ -205,17 +215,16 @@ public class MainActivity extends Activity {
 			}
 			if (changePanel) {
 				// Hide keyboard if present.
-				InputMethodManager imm = (InputMethodManager)getSystemService(
-					      Context.INPUT_METHOD_SERVICE);
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(wizardViewFlipper.getApplicationWindowToken(), 0);
-				
+
 				// Animate the move!
 				wizardViewFlipper.setInAnimation(animFlipInForward);
 				wizardViewFlipper.setOutAnimation(animFlipOutForward);
 				wizardViewFlipper.showNext();
 				WizardViewMember++;
 				wizardViews.get(WizardViewMember).callbackStart();
-				
+
 			}
 
 			// TODO: remove from final release.
@@ -241,13 +250,13 @@ public class MainActivity extends Activity {
 			try {
 				changePanel = wizardViews.get(WizardViewMember).callbackDispose(false);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			if (changePanel) {
 				// Hide keyboard if present.
-				InputMethodManager imm = (InputMethodManager)getSystemService(
-					      Context.INPUT_METHOD_SERVICE);
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(wizardViewFlipper.getApplicationWindowToken(), 0);
-				
+
 				wizardViewFlipper.setInAnimation(animFlipInBackward);
 				wizardViewFlipper.setOutAnimation(animFlipOutBackward);
 				wizardViewFlipper.showPrevious();
@@ -304,5 +313,14 @@ public class MainActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	/**
+	 * Customer function for Google Maps.
+	 */
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

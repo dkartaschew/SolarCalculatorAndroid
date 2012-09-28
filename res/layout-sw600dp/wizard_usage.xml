@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textViewUsageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/usageTitle"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewUsageTitle"
+        android:background="#ffffff" />
+
+    <TextView
+        android:id="@+id/textViewUsageDaily"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUsageTitle"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        android:text="@string/usageDailyAverage"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextUsageMonthly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/textViewUsageDaily"
+        android:layout_toRightOf="@id/textViewUsageDaily"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editTextUsageDayTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/textViewUsageDayTime"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@id/textViewUsageDayTime"
+        android:ems="10"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextUsageDaily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/textViewUsageMonthly"
+        android:layout_toRightOf="@id/textViewUsageMonthly"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/textViewUsageDayTime"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewUsageDaily"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/usageDayTime"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewUsageMonthly"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewUsageDayTime"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/usageMonthly"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewHowTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextUsageMonthly"
+        android:layout_alignBottom="@+id/editTextUsageMonthly"
+        android:layout_margin="30dp"
+        android:layout_toRightOf="@+id/editTextUsageDaily"
+        android:text="@string/usageHowTo" />
+
+</RelativeLayout>
