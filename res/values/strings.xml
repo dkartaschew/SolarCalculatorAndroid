@@ -35,8 +35,17 @@
 	<string name="locationMapTraffic">Traffic</string>
 	
 	<string name="usageTitle">Customer Usage</string>
-	<string name="usageDailyAverage">Daily Average Usage (kWh):</string>
-	<string name="usageDayTime">Day Time Hourly Usage (kWh):</string>
-	<string name="usageMonthly">Monthly Usage (kWh):</string>
-	<string name="usageHowTo">Please enter only one amount that best defines you average usage on either an hourly basis, daily basis or monthly basis</string>
+	<string name="usageDailyAverage">Daily Average Usage (kWh)</string>
+	<string name="usageDayTime">Day Time Hourly Usage (kWh)</string>
+	<string name="usageMonthly">Monthly Usage (kWh)</string>
+	<string name="usageHowTo">Please enter only one amount that best defines your average usage on either an hourly basis, daily basis or monthly basis</string>
+	
+	<string name="tariffTitle">Tariff Rates</string>
+	<string name="tariffDefined">Predefined Tariffs</string>
+	<string name="tariff11Cost">Tariff 11 Cost</string>
+	<string name="tariff33Cost">Tariff 33 Cost</string>
+	<string name="tariff11Fee">Tariff 11 Fee</string>
+	<string name="tariff33Fee">Tariff 33 Fee</string>
+	<string name="tariffFeedIn">Feed in Fee</string>
+	<string name="tariffIncrease">Annual Tariff Increase</string>
 </resources>

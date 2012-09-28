@@ -24,13 +24,13 @@
 
     <TextView
         android:id="@+id/textViewUsageDaily"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewUsageTitle"
         android:layout_marginTop="30dp"
         android:padding="5dp"
         android:text="@string/usageDailyAverage"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/editTextUsageMonthly"
@@ -65,24 +65,24 @@
 
     <TextView
         android:id="@+id/textViewUsageDayTime"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewUsageDaily"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="@string/usageDayTime"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textViewUsageMonthly"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textViewUsageDayTime"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="@string/usageMonthly"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textViewHowTo"
@@ -91,7 +91,9 @@
         android:layout_alignBaseline="@+id/editTextUsageMonthly"
         android:layout_alignBottom="@+id/editTextUsageMonthly"
         android:layout_margin="30dp"
+        android:layout_marginLeft="80dp"
         android:layout_toRightOf="@+id/editTextUsageDaily"
+        android:paddingLeft="20dp"
         android:text="@string/usageHowTo" />
 
 </RelativeLayout>

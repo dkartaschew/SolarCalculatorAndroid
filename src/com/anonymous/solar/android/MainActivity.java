@@ -125,6 +125,7 @@ public class MainActivity extends MapActivity {
 		wizardViews.add(new WizardSetupDescription(this));
 		wizardViews.add(new WizardLocation(this));
 		wizardViews.add(new WizardUsage(this));
+		wizardViews.add(new WizardTariff(this));
 		wizardViews.add(new WizardFinish(this));
 
 		// Set the number of views we have for button navigation.

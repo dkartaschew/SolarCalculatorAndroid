@@ -1,6 +1,6 @@
 package com.anonymous.solar.shared;
 
-public class TariffRate {
+public class TariffRate  implements Comparable<TariffRate>{
 
 	private Long key;
 
@@ -26,7 +26,7 @@ public class TariffRate {
 	public static final String TARIFF_STATE = "tariffState";
 	public static final String TARIFF_PROVIDER = "tariffProvider";
 
-	public TariffRate() {
+	public TariffRate(){
 		this.tariffProvider = new String();
 		this.tariffState = new String();
 		this.tariffFeedIn = 0.0;
@@ -223,7 +223,11 @@ public class TariffRate {
 
 	@Override
 	public String toString() {
-		return "Provider: " + tariffProvider + "; State: " + tariffState + "; Tariff11 Cost: " + tariff11Cost
-				+ "; Tariff33 Cost:" + tariff33Cost;
+		return tariffProvider + " (" + tariffState + ")";
+	}
+
+	@Override
+	public int compareTo(TariffRate arg0) {
+		return this.toString().compareTo(arg0.toString());
 	}
 }

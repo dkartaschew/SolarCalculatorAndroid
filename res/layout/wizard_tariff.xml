@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewTariffTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/tariffTitle"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ffffff" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textViewTariffDefined"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="@string/tariffDefined" />
+
+        <Spinner
+            android:id="@+id/spinnerTariffPredefined"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/textViewTariffDefined"
+            android:layout_toRightOf="@id/textViewTariffDefined"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textViewTariff11Cost"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTariffDefined"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="@string/tariff11Cost" />
+
+        <EditText
+            android:id="@+id/editTextTariff11Cost"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariff11Cost"
+            android:layout_toRightOf="@+id/textViewTariff11Cost"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+        
+        <TextView
+            android:id="@+id/textViewTariff11Fee"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextTariff11Cost"
+            android:layout_toRightOf="@+id/editTextTariff11Cost"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="5dp"
+            android:text="@string/tariff11Fee" />
+
+        <EditText
+            android:id="@+id/editTextTariff11Fee"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariff11Fee"
+            android:layout_toRightOf="@+id/textViewTariff11Fee"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+        
+        
+        <TextView
+            android:id="@+id/textViewTariff33Cost"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTariff11Cost"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="@string/tariff33Cost" />
+
+        <EditText
+            android:id="@+id/editTextTariff33Cost"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariff33Cost"
+            android:layout_toRightOf="@+id/textViewTariff33Cost"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+        
+        <TextView
+            android:id="@+id/textViewTariff33Fee"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextTariff33Cost"
+            android:layout_toRightOf="@+id/editTextTariff33Cost"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:padding="5dp"
+            android:text="@string/tariff33Fee" />
+
+        <EditText
+            android:id="@+id/editTextTariff33Fee"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariff33Fee"
+            android:layout_toRightOf="@+id/textViewTariff33Fee"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+        
+        
+        <TextView
+            android:id="@+id/textViewTariffFeedIn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTariff33Cost"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="@string/tariffFeedIn" />
+
+        <EditText
+            android:id="@+id/editTextTariffFeedIn"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariffFeedIn"
+            android:layout_toRightOf="@+id/textViewTariffFeedIn"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+        
+        <TextView
+            android:id="@+id/textViewTariffFeeIncrease"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextTariffFeedIn"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/editTextTariffFeedIn"
+            android:padding="5dp"
+            android:text="@string/tariffIncrease" />
+
+        <EditText
+            android:id="@+id/editTextTariffFeeIncrease"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTariffFeeIncrease"
+            android:layout_toRightOf="@+id/textViewTariffFeeIncrease"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="5dp" >
+        </EditText>
+    </RelativeLayout>
+
+    <requestFocus />
+
+</LinearLayout>

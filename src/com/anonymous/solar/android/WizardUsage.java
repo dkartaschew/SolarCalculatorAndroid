@@ -1,16 +1,10 @@
 package com.anonymous.solar.android;
 
-import java.util.List;
+import android.widget.EditText;
 
 import com.anonymous.solar.shared.CustomerData;
 import com.anonymous.solar.shared.SolarPanelException;
 import com.anonymous.solar.shared.SolarSetup;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
-
-import android.graphics.drawable.Drawable;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 /**
  * The Customer Usage Wizard Pane.
