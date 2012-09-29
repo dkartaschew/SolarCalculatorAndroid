@@ -48,4 +48,17 @@
 	<string name="tariff33Fee">Tariff 33 Fee</string>
 	<string name="tariffFeedIn">Feed in Fee</string>
 	<string name="tariffIncrease">Annual Tariff Increase</string>
+	
+	<string name="inverterTitle">Electrical Setup</string>
+	<string name="inverterName">Inverter</string>
+	<string name="inverterDetails">Inverter Details</string>
+	<string name="inverterWiringLength">Wiring Length (m)</string>
+	<string name="inverterWiringEff">Wiring Efficiency (%)</string>
+	<string name="inverterEdit">Edit</string>
+	<string name="inverterEditCost">Cost</string>
+	<string name="inverterEditRRP">RRP</string>
+	<string name="inverterEditWattage">Wattage</string>
+	<string name="inverterEditLife">Expected Life</string>
+	<string name="inverterEditEfficiency">Rated Efficiency</string>
+	<string name="inverterEditEfficiencyLoss">Efficiency Loss Per Year</string>
 </resources>

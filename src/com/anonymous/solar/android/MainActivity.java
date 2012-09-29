@@ -27,6 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -47,6 +48,7 @@ public class MainActivity extends MapActivity {
 	private Button closeButton;
 	private Button nextButton;
 	private Button backButton;
+	private ProgressBar progressBar;
 
 	// Button handlers
 	private OnClickListener backButtonListener;
@@ -78,6 +80,9 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.activity_main);
 		addViews();
 		setButtonActions();
+		progressBar = (ProgressBar)findViewById(R.id.progressBarMainActivity);
+		progressBar.setMax(wizardViews.size()-1);
+		progressBar.setProgress(0);
 		if (solarSetup == null) {
 			solarSetup = new SolarSetup();
 		}
@@ -126,6 +131,7 @@ public class MainActivity extends MapActivity {
 		wizardViews.add(new WizardLocation(this));
 		wizardViews.add(new WizardUsage(this));
 		wizardViews.add(new WizardTariff(this));
+		wizardViews.add(new WizardElectrical(this));
 		wizardViews.add(new WizardFinish(this));
 
 		// Set the number of views we have for button navigation.
@@ -225,6 +231,7 @@ public class MainActivity extends MapActivity {
 				wizardViewFlipper.showNext();
 				WizardViewMember++;
 				wizardViews.get(WizardViewMember).callbackStart();
+				progressBar.setProgress(WizardViewMember);
 
 			}
 
@@ -263,6 +270,7 @@ public class MainActivity extends MapActivity {
 				wizardViewFlipper.showPrevious();
 				WizardViewMember--;
 				wizardViews.get(WizardViewMember).callbackStart();
+				progressBar.setProgress(WizardViewMember);
 			}
 
 			// TODO: remove from final release.

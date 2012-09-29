@@ -12,7 +12,7 @@ package com.anonymous.solar.shared;
  * @version 1.0
  */
 
-public class SolarInverter {
+public class SolarInverter implements Comparable<SolarInverter>{
 
 	private final Double INITIAL_VALUES = 0.0;
 	
@@ -193,11 +193,7 @@ public class SolarInverter {
 	 */
 	@Override
 	public String toString(){
-		return getInverterName() + 
-				" - Cost: " + String.format("$%,.2f", getInverterCost()) + 
-				" - Life: " + getInverterLifeYears() + " years" + 
-				" - Wattage: " + getInverterWattage() + "W" + 
-				" - Efficiency Loss: " + inverterLossYear + "%";
+		return getInverterName() + " (" + getInverterManufacturer() + " : "+ getInverterManufacturerCode() +")";
 	}
 
 	public String toString(boolean htmlTags) {
@@ -356,6 +352,22 @@ public class SolarInverter {
 	 */
 	public void setInverterLifeYears(Integer inverterLifeYears) {
 		this.inverterLifeYears = inverterLifeYears;
+	}
+
+	@Override
+	public int compareTo(SolarInverter arg0) {
+		return this.inverterName.compareTo(arg0.inverterName);
+	}
+
+	public String toDetailsString() {
+		return "Name: " + inverterName + "\n" +
+				"Manufacturer : " + inverterManufacturer + "\n" +
+				"Manufacturer Code: " + inverterManufacturerCode + "\n" +
+				"Wattage: " + inverterWattage + "W" + "\n" + 
+				   "Efficiency: " + inverterEfficiency + "%\n"	+ 
+				   "Life: " + inverterLifeYears.toString() + " Years\n" + 
+				   "RRP: " + String.format("$%,.2f", inverterRRP) + "\n" +
+				   "Cost: " + String.format("$%,.2f", inverterCost) + "\n";
 	}
 
 }

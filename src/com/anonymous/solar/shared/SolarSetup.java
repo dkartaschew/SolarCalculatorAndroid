@@ -469,8 +469,8 @@ public class SolarSetup {
 	 * @throws SolarSetupException if the efficiency is null or less than 0.00
 	 */
 	public void setWireEfficiency(Double wireEfficiency) throws SolarSetupException {
-		if (wireEfficiency == null || wireEfficiency < 0.00) {
-			throw new SolarSetupException("The supplied wire Efficiency was null or less than 0.00");
+		if (wireEfficiency == null || wireEfficiency < 0.00 || wireEfficiency > 100.00) {
+			throw new SolarSetupException("The supplied wire Efficiency was null or less than 0.00 or greater than 100.00");
 		}
 		this.wireEfficiency = wireEfficiency;
 	}

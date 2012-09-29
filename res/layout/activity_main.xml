@@ -2,6 +2,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/glowy_hex"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="false"
@@ -27,6 +28,15 @@
         android:fitsSystemWindows="true"
         android:gravity="bottom|right"
         android:orientation="horizontal" >
+        
+        <ProgressBar
+            android:id="@+id/progressBarMainActivity"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:indeterminate="false"
+            android:minWidth="300dp" />
          
         <TextView
             android:id="@+id/textView1"

@@ -24,13 +24,13 @@
 
     <TextView
         android:id="@+id/textViewUsageDaily"
-        android:layout_width="300dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewUsageTitle"
         android:layout_marginTop="30dp"
         android:padding="5dp"
         android:text="@string/usageDailyAverage"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/editTextUsageMonthly"
@@ -39,7 +39,8 @@
         android:layout_alignBaseline="@id/textViewUsageDaily"
         android:layout_toRightOf="@id/textViewUsageDaily"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/editTextUsageDayTime"
@@ -49,9 +50,8 @@
         android:layout_alignParentLeft="false"
         android:layout_toRightOf="@id/textViewUsageDayTime"
         android:ems="10"
-        android:inputType="numberDecimal" >
-
-        <requestFocus />
+        android:inputType="numberDecimal"
+        android:textAppearance="?android:attr/textAppearanceLarge" >
     </EditText>
 
     <EditText
@@ -61,28 +61,29 @@
         android:layout_alignBaseline="@id/textViewUsageMonthly"
         android:layout_toRightOf="@id/textViewUsageMonthly"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewUsageDayTime"
-        android:layout_width="300dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewUsageDaily"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="@string/usageDayTime"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewUsageMonthly"
-        android:layout_width="300dp"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textViewUsageDayTime"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="@string/usageMonthly"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewHowTo"

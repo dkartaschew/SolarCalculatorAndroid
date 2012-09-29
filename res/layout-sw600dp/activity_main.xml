@@ -2,11 +2,12 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/glowy_hex"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="false"
     android:scrollbars="vertical" >
-    
+
     <ViewFlipper
         android:id="@+id/viewFlipperWizard"
         android:layout_width="fill_parent"
@@ -15,29 +16,45 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:gravity="top" >
-        
     </ViewFlipper>
-    
-    <LinearLayout
+
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/LinearLayoutNavButtons"
+        android:id="@+id/RelativeLayout2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:fitsSystemWindows="true"
-        android:gravity="bottom|right"
-        android:orientation="horizontal" >
+        android:gravity="bottom" >
 
-        
+        <ProgressBar
+            android:id="@+id/progressBarMainActivity"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/RelativeLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="false"
+            android:minWidth="300dp" />
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/buttonBack"
+            android:layout_alignParentLeft="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/progressBarMainActivity"
+            android:padding="5dp" />
+
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/buttonNext"
             android:text="@string/previous"
             android:textSize="@dimen/ButtonDefault" />
 
@@ -45,6 +62,9 @@
             android:id="@+id/buttonNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonBack"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/buttonClose"
             android:text="@string/next"
             android:textSize="@dimen/ButtonDefault" />
 
@@ -52,9 +72,12 @@
             android:id="@+id/buttonClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonNext"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:text="@string/close"
             android:textSize="@dimen/ButtonDefault" />
-        
-    </LinearLayout>
-    
+
+    </RelativeLayout>
+
 </RelativeLayout>

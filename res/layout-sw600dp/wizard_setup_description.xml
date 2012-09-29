@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp" 
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
         android:id="@+id/textViewSetupDescription"
@@ -50,11 +51,14 @@
     <EditText
         android:id="@+id/editTextSetupDescription"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="50dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:gravity="top|left" />
+        android:gravity="top|left"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

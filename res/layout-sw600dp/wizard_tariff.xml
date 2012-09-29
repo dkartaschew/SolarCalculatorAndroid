@@ -26,12 +26,12 @@
 
         <TextView
             android:id="@+id/textViewTariffDefined"
-            android:layout_width="170dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="5dp"
             android:text="@string/tariffDefined"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/spinnerTariffPredefined"
@@ -44,13 +44,13 @@
 
         <TextView
             android:id="@+id/textViewTariff11Cost"
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTariffDefined"
             android:layout_marginTop="20dp"
             android:padding="5dp"
             android:text="@string/tariff11Cost"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariff11Cost"
@@ -60,12 +60,13 @@
             android:layout_toRightOf="@+id/textViewTariff11Cost"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:padding="5dp" >
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
         
         <TextView
             android:id="@+id/textViewTariff11Fee"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/editTextTariff11Cost"
             android:layout_toRightOf="@+id/editTextTariff11Cost"
@@ -73,7 +74,7 @@
             android:layout_marginLeft="20dp"
             android:padding="5dp"
             android:text="@string/tariff11Fee"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariff11Fee"
@@ -83,19 +84,20 @@
             android:layout_toRightOf="@+id/textViewTariff11Fee"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:padding="5dp" >
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
         
         
         <TextView
             android:id="@+id/textViewTariff33Cost"
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTariff11Cost"
             android:layout_marginTop="20dp"
             android:padding="5dp"
             android:text="@string/tariff33Cost"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariff33Cost"
@@ -105,12 +107,13 @@
             android:layout_toRightOf="@+id/textViewTariff33Cost"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:padding="5dp" >
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
         
         <TextView
             android:id="@+id/textViewTariff33Fee"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/editTextTariff33Cost"
             android:layout_toRightOf="@+id/editTextTariff33Cost"
@@ -118,7 +121,7 @@
             android:layout_marginLeft="20dp"
             android:padding="5dp"
             android:text="@string/tariff33Fee"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariff33Fee"
@@ -128,19 +131,20 @@
             android:layout_toRightOf="@+id/textViewTariff33Fee"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:padding="5dp" >
         </EditText>
         
         
         <TextView
             android:id="@+id/textViewTariffFeedIn"
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTariff33Cost"
             android:layout_marginTop="20dp"
             android:padding="5dp"
             android:text="@string/tariffFeedIn"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariffFeedIn"
@@ -150,12 +154,13 @@
             android:layout_toRightOf="@+id/textViewTariffFeedIn"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:padding="5dp" >
         </EditText>
         
         <TextView
             android:id="@+id/textViewTariffFeeIncrease"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/editTextTariffFeedIn"
             android:layout_marginLeft="20dp"
@@ -163,7 +168,7 @@
             android:layout_toRightOf="@+id/editTextTariffFeedIn"
             android:padding="5dp"
             android:text="@string/tariffIncrease"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editTextTariffFeeIncrease"
@@ -173,7 +178,8 @@
             android:layout_toRightOf="@+id/textViewTariffFeeIncrease"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:padding="5dp" >
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
     </RelativeLayout>
 
