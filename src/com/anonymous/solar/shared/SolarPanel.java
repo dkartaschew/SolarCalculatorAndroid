@@ -12,7 +12,7 @@ package com.anonymous.solar.shared;
  * @version 1.0
  */
 
-public class SolarPanel {
+public class SolarPanel implements Comparable<SolarPanel>{
 
 	private final Double INITIAL_VALUES = 0.0;
 
@@ -429,11 +429,7 @@ public class SolarPanel {
 	}*/
 	@Override
 	public String toString(){
-		return getPanelName() + 
-				" - Cost: " + String.format("$%,.2f", getPanelCost()) + 
-				" - Life: " + getPanelLifeYears() + " years" + 
-				" - Wattage: " + getPanelWattage() + "W" + 
-				" - Efficiency Loss: " + panelLossYear + "%";
+		return getPanelName() + " (" + getPanelManufacturer() + " : "+ getPanelManufacturerCode() +")";
 	}
 	
 	/**
@@ -489,6 +485,11 @@ public class SolarPanel {
 					+ "RRP: " + String.format("$%,.2f", panelRRP) + "<br />"
 					+ "Life(years): " + panelLifeYears + "<br />";
 		}
+	}
+
+	@Override
+	public int compareTo(SolarPanel arg0) {
+		return panelName.compareTo(arg0.panelName);
 	}
 
 }

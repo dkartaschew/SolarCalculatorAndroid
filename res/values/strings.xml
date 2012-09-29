@@ -61,4 +61,15 @@
 	<string name="inverterEditLife">Expected Life</string>
 	<string name="inverterEditEfficiency">Rated Efficiency</string>
 	<string name="inverterEditEfficiencyLoss">Efficiency Loss Per Year</string>
+	
+	<string name="panelsTitle">Solar Panel Configuration</string>
+	<string name="panelsName">Solar Panel</string>
+	<string name="panelsAdd">Add Panel</string>
+	<string name="panelsRemove">Remove Panel</string>
+	<string name="panelsEdit">Edit Panel</string>
+	<string name="panelsWattage">Wattage</string>
+	<string name="panelsCount">Count</string>
+	<string name="panelsDiection">Direction</string>
+	<string name="panelsAzimuth">Azimuth</string>
+	<string name="panelsEditPanelHowTo">To edit a row of panels, long click on the row defining the panel configuration.</string>
 </resources>
