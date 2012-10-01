@@ -3,18 +3,27 @@ package com.anonymous.solar.shared;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+
 public class LocationData {
 
+	//@Element
 	private Long key;
 
+	@Element
 	protected Double latitude;
 
+	@Element
 	protected String locationName;
 
+	@ElementList
 	protected List<Double> locationWeatherData;
 
+	@ElementList
 	protected List<Double> locationWeatherEfficiency;
 
+	@Element
 	protected Double longitude;
 
 	/*

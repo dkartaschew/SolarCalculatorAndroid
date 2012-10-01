@@ -39,7 +39,7 @@
             android:minWidth="300dp" />
          
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

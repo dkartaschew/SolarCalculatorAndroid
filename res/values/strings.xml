@@ -76,4 +76,10 @@
 	<string name="confirmationTitle">Setup Confirmation</string>
 	<string name="confirmationMessage">If you are happy with the above details, please click on next to generate a report.</string>
 	<string name="confirmationYears">Report Projection (Yrs)</string>
+	
+	<string name="resultsTitle">Results</string>
+	<string name="resultsSummary">Summary</string>
+	<string name="resultsGraph">Graph</string>
+	<string name="resultsDetail">Results Table</string>
+	<string name="resultsWaitSummary">Waiting for results...</string>
 </resources>

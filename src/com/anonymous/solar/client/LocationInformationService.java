@@ -77,7 +77,7 @@ public class LocationInformationService {
 					Double item = Double.parseDouble(weatherInformation.toString());
 					weatherEff.add(item);
 				}
-				location.setLocationWeatherData(weatherEff);
+				location.setLocationWeatherEfficency(weatherEff);
 
 				locations.add(location);
 			}

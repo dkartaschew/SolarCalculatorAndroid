@@ -1,15 +1,26 @@
 package com.anonymous.solar.shared;
 
+import org.simpleframework.xml.Element;
+
 public class CustomerData {
 	
+	@Element
 	protected Double annualTariffIncrease;
+	@Element
     protected Double dailyAverageUsage;
+	@Element
     protected Double feedInFee;
+	@Element
     protected Double hourlyAverageUsage;
+	@Element
     protected Double monthlyAverageUsage;
+	@Element
     protected Double tariff11Cost;
+	@Element
     protected Double tariff11Fee;
+	@Element
     protected Double tariff13Cost;
+	@Element
     protected Double tariff13Fee;
 	
 	public CustomerData(){

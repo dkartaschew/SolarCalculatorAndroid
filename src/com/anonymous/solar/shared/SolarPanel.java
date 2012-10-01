@@ -3,6 +3,8 @@
  */
 package com.anonymous.solar.shared;
 
+import org.simpleframework.xml.Element;
+
 
 /**
  * Class to hold and work on Solar Installation components, namely panels
@@ -13,27 +15,35 @@ package com.anonymous.solar.shared;
  */
 
 public class SolarPanel implements Comparable<SolarPanel>{
-
+	
+	//@Element
 	private final Double INITIAL_VALUES = 0.0;
 
-
+	//@Element
 	private Long key;
 
-
+	@Element
 	private String panelName;
 
+	@Element
 	private String panelManufacturer;
 
+	@Element
 	private String panelManufacturerCode;
 
+	@Element
 	private Double panelWattage;
 
+	@Element
 	private Double panelLossYear;
 
+	@Element
 	private Double panelCost;
 
+	@Element
 	private Double panelRRP;
 
+	@Element
 	private Integer panelLifeYears;
 
 	/*

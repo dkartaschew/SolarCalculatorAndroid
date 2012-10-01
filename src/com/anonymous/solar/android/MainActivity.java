@@ -133,6 +133,7 @@ public class MainActivity extends MapActivity {
 		wizardViews.add(new WizardElectrical(this));
 		wizardViews.add(new WizardPanel(this));
 		wizardViews.add(new WizardConfirmation(this));
+		wizardViews.add(new WizardResults(this));
 		wizardViews.add(new WizardFinish(this));
 
 		// Set the number of views we have for button navigation.
@@ -177,7 +178,7 @@ public class MainActivity extends MapActivity {
 		backButton.setVisibility(View.INVISIBLE);
 
 		// TODO: remove from final release.
-		TextView txt = (TextView) findViewById(R.id.textView1);
+		TextView txt = (TextView) findViewById(R.id.textViewProgress);
 		txt.setText(String.format("%d / %d", WizardViewMember + 1, WizardViewCount));
 	}
 
@@ -237,7 +238,7 @@ public class MainActivity extends MapActivity {
 			}
 
 			// TODO: remove from final release.
-			TextView txt = (TextView) findViewById(R.id.textView1);
+			TextView txt = (TextView) findViewById(R.id.textViewProgress);
 			txt.setText(String.format("%d / %d", WizardViewMember + 1, WizardViewCount));
 
 			// Enable the back button, and disable the next button if on last
@@ -275,7 +276,7 @@ public class MainActivity extends MapActivity {
 			}
 
 			// TODO: remove from final release.
-			TextView txt = (TextView) findViewById(R.id.textView1);
+			TextView txt = (TextView) findViewById(R.id.textViewProgress);
 			txt.setText(String.format("%d / %d", WizardViewMember + 1, WizardViewCount));
 
 			// Disable the back button if on the first pane.

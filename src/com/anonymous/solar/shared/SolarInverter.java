@@ -3,6 +3,8 @@
  */
 package com.anonymous.solar.shared;
 
+import org.simpleframework.xml.Element;
+
 
 /**
  * Class to hold and work on Solar Installation components, namely inverters
@@ -14,36 +16,37 @@ package com.anonymous.solar.shared;
 
 public class SolarInverter implements Comparable<SolarInverter>{
 
+	//@Element
 	private final Double INITIAL_VALUES = 0.0;
 	
-
+	//@Element
 	private Long key;
 
-
+	@Element
 	private String inverterName;
 	
-
+	@Element
 	private String inverterManufacturer;
 	
-
+	@Element
 	private String inverterManufacturerCode;
 	
-
+	@Element
 	private Double inverterWattage;
 	
-
+	@Element
 	private Double inverterLossYear;
 	
-
+	@Element
 	private Double inverterEfficiency;
 	
-
+	@Element
 	private Double inverterCost;
 	
-
+	@Element
 	private Double inverterRRP;
 	
-
+	@Element
 	private Integer inverterLifeYears;
 	
 	public static final String INVERTER_NAME = "inverterName";

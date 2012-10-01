@@ -6,6 +6,10 @@ package com.anonymous.solar.shared;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 /**
  * Class to hold and work on Solar Installation components, namely inverters
  * themselves.
@@ -13,15 +17,24 @@ import java.util.List;
  * @author 07627505 Darran Kartaschew
  * @version 1.0
  */
+@Root(name="arg0")
 public class SolarSetup {
 
+	@Element
 	protected CustomerData customerData;
+	@Element
 	protected SolarInverter inverter;
+	@Element
 	protected LocationData locationInformation;
+	@Element
 	protected String setupDescription;
+	@Element
 	protected String setupName;
+	@ElementList (inline=true)
 	protected List<SolarPanels> solarPanels;
+	@Element
 	protected Double wireEfficiency;
+	@Element
 	protected Double wireLength;
 
 	public SolarSetup() {

@@ -3,6 +3,8 @@
  */
 package com.anonymous.solar.shared;
 
+import org.simpleframework.xml.Element;
+
 import com.anonymous.solar.shared.SolarPanelsException;
 
 /**
@@ -13,9 +15,16 @@ import com.anonymous.solar.shared.SolarPanelsException;
  */
 public class SolarPanels {
 
+	@Element
 	protected Double panelAzimuth;
+	
+	@Element
     protected Integer panelCount;
+	
+	@Element
     protected Double panelDirection;
+	
+	@Element
     protected SolarPanel panelType;
 
 
