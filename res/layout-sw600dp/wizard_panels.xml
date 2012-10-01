@@ -58,6 +58,11 @@
             android:text="@string/panelsEdit" />
     </LinearLayout>
 
+    <ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="0dip"
+    android:scrollbars="none"
+    android:layout_weight="1">
     <TableLayout
         android:id="@+id/tablePanels"
         android:layout_width="match_parent"
@@ -65,67 +70,15 @@
         android:layout_gravity="top|left"
         android:layout_margin="20dp"
         android:layout_marginTop="40dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="50dp"
         android:clickable="true"
         android:focusable="true"
         android:gravity="top|left"
         android:scrollbars="vertical"
         android:stretchColumns="*" >
 
-        <TableRow>
-
-            <TextView
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:padding="3dp"
-                android:background="#ffcccccc"
-                android:gravity="center_horizontal"
-                android:text="@string/panelsName"
-                android:textColor="@android:color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:padding="3dp"
-                android:background="#ffcccccc"
-                android:gravity="center_horizontal"
-                android:text="@string/panelsWattage"
-                android:textColor="@android:color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:padding="3dp"
-                android:background="#ffcccccc"
-                android:gravity="center_horizontal"
-                android:text="@string/panelsCount"
-                android:textColor="@android:color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:padding="3dp"
-                android:background="#ffcccccc"
-                android:gravity="center_horizontal"
-                android:text="@string/panelsDiection"
-                android:textColor="@android:color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:padding="3dp"
-                android:background="#ffcccccc"
-                android:gravity="center_horizontal"
-                android:text="@string/panelsAzimuth"
-                android:textColor="@android:color/black"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </TableRow>
-
     </TableLayout>
+    </ScrollView>
     
     <TextView
         android:layout_width="match_parent"

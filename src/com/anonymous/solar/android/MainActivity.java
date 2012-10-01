@@ -42,6 +42,7 @@ public class MainActivity extends MapActivity {
 	// Private state fields.
 	private int WizardViewCount = 0;
 	private int WizardViewMember = 0;
+	private int ReportYears = 25;
 
 	// Wizard components
 	private ViewFlipper wizardViewFlipper;
@@ -80,8 +81,8 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.activity_main);
 		addViews();
 		setButtonActions();
-		progressBar = (ProgressBar)findViewById(R.id.progressBarMainActivity);
-		progressBar.setMax(wizardViews.size()-1);
+		progressBar = (ProgressBar) findViewById(R.id.progressBarMainActivity);
+		progressBar.setMax(wizardViews.size() - 1);
 		progressBar.setProgress(0);
 		if (solarSetup == null) {
 			solarSetup = new SolarSetup();
@@ -120,8 +121,6 @@ public class MainActivity extends MapActivity {
 				return true;
 			}
 
-			
-
 		};
 		gestureDetector = new GestureDetector(simpleOnGestureListener);
 
@@ -133,6 +132,7 @@ public class MainActivity extends MapActivity {
 		wizardViews.add(new WizardTariff(this));
 		wizardViews.add(new WizardElectrical(this));
 		wizardViews.add(new WizardPanel(this));
+		wizardViews.add(new WizardConfirmation(this));
 		wizardViews.add(new WizardFinish(this));
 
 		// Set the number of views we have for button navigation.
@@ -332,5 +332,25 @@ public class MainActivity extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * Get the number of years to report on.
+	 * 
+	 * @return The number of years.
+	 */
+	public Integer getReportYears() {
+		return ReportYears;
+	}
+
+	/**
+	 * Set the number of years to report on.
+	 * 
+	 * @param reportYears
+	 */
+	public void setReportYears(int reportYears) {
+		if (reportYears > 0) {
+			ReportYears = reportYears;
+		}
 	}
 }

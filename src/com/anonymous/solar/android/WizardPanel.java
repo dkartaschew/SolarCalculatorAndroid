@@ -1,16 +1,14 @@
 package com.anonymous.solar.android;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -43,15 +41,15 @@ public class WizardPanel extends WizardViews {
 
 	// Layout widgets.
 	private TableLayout panelTable;
+	final private static int panelTableHeaderColor = 0xffcccccc;
 	private Button editPanelButton;
 	private OnClickListener editBttonListener;
 	private Button addPanelButton;
 	private OnClickListener addButtonListener;
 	private Button removePanelButton;
-	private OnClickListener removeBttonListener;
+	private OnClickListener removeButtonListener;
 	private Spinner definedPanels;
 
-	private List<SolarPanel> spinner_panels;
 	private ArrayList<SolarPanels> panels;
 
 	/**
@@ -71,7 +69,7 @@ public class WizardPanel extends WizardViews {
 		editPanelButton = (Button) parent.findViewById(R.id.buttonPanelEdit);
 		addPanelButton = (Button) parent.findViewById(R.id.buttonPanelAdd);
 		removePanelButton = (Button) parent.findViewById(R.id.buttonPanelDelete);
-
+		panelTable = (TableLayout) parent.findViewById(R.id.tablePanels);
 		// Setup Edit Button.
 		setupButtons();
 
@@ -100,6 +98,14 @@ public class WizardPanel extends WizardViews {
 			}
 		};
 		addPanelButton.setOnClickListener(addButtonListener);
+
+		removeButtonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				buttonPanelRemoveEvent();
+			}
+		};
+		removePanelButton.setOnClickListener(removeButtonListener);
 	}
 
 	/**
@@ -218,12 +224,90 @@ public class WizardPanel extends WizardViews {
 	}
 
 	/**
+	 * Remove the current selected row from the table.
+	 */
+	private void buttonPanelRemoveEvent() {
+		int numberOfRows = panelTable.getChildCount();
+		// Scan all rows for the selected flag, and remove as needed.
+		for (int i = 1; i < numberOfRows; i++) {
+			TableRow row = (TableRow) panelTable.getChildAt(i);
+			if (row != null) {
+				if (row.isSelected()) {
+					panels.remove(i - 1);
+					panelTable.removeView(row);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Add the default header row to the table.
+	 */
+	protected void addHeaderRow() {
+		TableRow row = new TableRow(parent);
+
+		// Add our five columns (Name)
+		TextView tvName = new TextView(parent);
+		tvName.setText(R.string.panelsName);
+		tvName.setGravity(Gravity.CENTER);
+		tvName.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		tvName.setPadding(1, 1, 1, 1);
+		tvName.setBackgroundColor(panelTableHeaderColor);
+		tvName.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(tvName);
+
+		// Add Wattage
+		TextView tvWattage = new TextView(parent);
+		tvWattage.setText(R.string.panelsWattage);
+		tvWattage.setGravity(Gravity.CENTER);
+		tvWattage.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		tvWattage.setPadding(1, 1, 1, 1);
+		tvWattage.setBackgroundColor(panelTableHeaderColor);
+		tvWattage.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(tvWattage);
+
+		// Add Count
+		TextView tvCount = new TextView(parent);
+		tvCount.setText(R.string.panelsCount);
+		tvCount.setGravity(Gravity.CENTER);
+		tvCount.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		tvCount.setPadding(1, 1, 1, 1);
+		tvCount.setBackgroundColor(panelTableHeaderColor);
+		tvCount.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(tvCount);
+
+		// Add Direction
+		TextView tvDirection = new TextView(parent);
+		tvDirection.setText(R.string.panelsDiection);
+		tvDirection.setGravity(Gravity.CENTER);
+		tvDirection.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		tvDirection.setPadding(1, 1, 1, 1);
+		tvDirection.setBackgroundColor(panelTableHeaderColor);
+		tvDirection.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(tvDirection);
+
+		// Add Azimuth
+		TextView tvAzimuth = new TextView(parent);
+		tvAzimuth.setText(R.string.panelsAzimuth);
+		tvAzimuth.setGravity(Gravity.CENTER);
+		tvAzimuth.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		tvAzimuth.setPadding(1, 1, 1, 1);
+		tvAzimuth.setBackgroundColor(panelTableHeaderColor);
+		// tvAzimuth.setBackgroundResource(android.R.color.secondary_text_light);
+		tvAzimuth.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(tvAzimuth);
+
+		// Add our row to the table.
+		row.setPadding(3, 3, 3, 3);
+		panelTable.addView(row);
+	}
+
+	/**
 	 * Add a panel configuration to the table.
 	 * 
 	 * @param lpanels
 	 */
 	protected void addRow(SolarPanels lpanels) {
-		TableLayout table = (TableLayout) parent.findViewById(R.id.tablePanels);
 
 		TableRow row = new TableRow(parent);
 
@@ -231,43 +315,141 @@ public class WizardPanel extends WizardViews {
 		TextView tvName = new TextView(parent);
 		tvName.setText(lpanels.getPanelType().toString());
 		tvName.setGravity(Gravity.LEFT);
-		tvName.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+		tvName.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 		row.addView(tvName);
 
 		// Add Wattage
 		TextView tvWattage = new TextView(parent);
 		tvWattage.setText(lpanels.getPanelType().getPanelWattage().toString() + "W");
 		tvWattage.setGravity(Gravity.CENTER);
-		tvWattage.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+		tvWattage.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 		row.addView(tvWattage);
 
 		// Add Count
 		TextView tvCount = new TextView(parent);
 		tvCount.setText(lpanels.getPanelCount().toString());
 		tvCount.setGravity(Gravity.CENTER);
-		tvCount.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+		tvCount.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 		row.addView(tvCount);
 
 		// Add Direction
 		TextView tvDirection = new TextView(parent);
-		tvDirection.setText(String.format("%.0f", lpanels.getPanelDirection()));
+		tvDirection.setText(String.format("%.2f", lpanels.getPanelDirection()));
 		tvDirection.setGravity(Gravity.CENTER);
-		tvDirection.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+		tvDirection.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 		row.addView(tvDirection);
 
 		// Add Azimuth
 		TextView tvAzimuth = new TextView(parent);
-		tvAzimuth.setText(String.format("%.0f", lpanels.getPanelAzimuth()));
+		tvAzimuth.setText(String.format("%.2f", lpanels.getPanelAzimuth()));
 		tvAzimuth.setGravity(Gravity.CENTER);
-		tvAzimuth.setTextAppearance(parent, android.R.attr.textAppearanceMedium);
+		tvAzimuth.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 		row.addView(tvAzimuth);
 
 		// Add our row to the table.
-		row.setPadding(5, 5, 5, 5);
+		row.setPadding(3, 10, 3, 10);
 		row.setLongClickable(true);
 		row.setClickable(true);
 		row.setFocusable(true);
-		table.addView(row);
+		row.setFocusableInTouchMode(true);
+		row.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				setRowBackground(v);
+				// get the panel information.
+				int index = panelTable.indexOfChild(v);
+				longClickPanelEvent(v, panels.get(index - 1));
+				// Unset the background.
+				v.setBackgroundColor(0);
+				v.clearFocus();
+				v.setSelected(false);
+				return true;
+			}
+		});
+		row.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Clear all views backgrounds;
+				setRowBackground(v);
+			}
+		});
+		panelTable.addView(row);
+	}
+
+	/**
+	 * Display the modify details dialog for a table row.
+	 */
+	private void longClickPanelEvent(final View v, final SolarPanels lpanels) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(parent);
+
+		alert.setTitle("Modify Panel Configuration");
+		// alert.setMessage("Modify Inverter Information");
+
+		LayoutInflater inflater = parent.getLayoutInflater();
+		FrameLayout f1 = (FrameLayout) parent.findViewById(android.R.id.custom);
+		// f1.addView(inflater.inflate(R.layout.inverter_edit, f1, false));
+		View view = inflater.inflate(R.layout.panel_edittable, f1, false);
+		alert.setView(view);
+
+		// Get our dialog elements
+		final EditText count = (EditText) view.findViewById(R.id.editTextPanelEditCount);
+		final EditText direction = (EditText) view.findViewById(R.id.editTextPanelEditDirection);
+		final EditText azimuth = (EditText) view.findViewById(R.id.editTextPanelEditAzimuth);
+
+		count.setText(lpanels.getPanelCount().toString());
+		direction.setText(lpanels.getPanelDirection().toString());
+		azimuth.setText(lpanels.getPanelAzimuth().toString());
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// record the values
+				try {
+					int panelCount = (Integer.parseInt(count.getText().toString()));
+					double panelDirection = (Double.parseDouble(direction.getText().toString()));
+					double panelAzimuth = (Double.parseDouble(azimuth.getText().toString()));
+					// Update the stored panel information.
+					lpanels.setPanelCount(panelCount);
+					lpanels.setPanelDirection(panelDirection);
+					lpanels.setPanelAzimuth(panelAzimuth);
+					// update the table row.
+					TableRow tr = (TableRow) v;
+					((TextView) tr.getChildAt(2)).setText(lpanels.getPanelCount().toString());
+					((TextView) tr.getChildAt(3)).setText(String.format("%.2f", lpanels.getPanelDirection()));
+					((TextView) tr.getChildAt(4)).setText(String.format("%.2f", lpanels.getPanelAzimuth()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
+		});
+
+		alert.show();
+	}
+
+	/**
+	 * Clears all the highlights for all rows, then sets the background colour.
+	 * 
+	 * @param v
+	 */
+	private void setRowBackground(View v) {
+		// Clear all rows
+		int numberOfRows = panelTable.getChildCount();
+		for (int i = 1; i < numberOfRows; i++) {
+			panelTable.getChildAt(i).setBackgroundColor(0);
+			panelTable.getChildAt(i).clearFocus();
+			panelTable.getChildAt(i).setSelected(false);
+		}
+		// Set our row.
+		v.setBackgroundColor(panelTableHeaderColor);
+		v.requestFocus();
+		v.setSelected(true);
 	}
 
 	/**
@@ -299,6 +481,9 @@ public class WizardPanel extends WizardViews {
 		definedPanels.setOnItemSelectedListener(spinnerPanelListener);
 	}
 
+	/**
+	 * Callback handler on create
+	 */
 	@Override
 	public boolean callbackStart() {
 		SolarSetup global = parent.getSolarSetup();
@@ -308,11 +493,20 @@ public class WizardPanel extends WizardViews {
 			panels = new ArrayList<SolarPanels>();
 		}
 
-		// TODO : populate the SolarPanels Table.
+		TableLayout table = (TableLayout) parent.findViewById(R.id.tablePanels);
+		// Clear the table and re-add all the rows.
+		table.removeAllViews();
+		addHeaderRow();
+		for (SolarPanels pan : panels) {
+			addRow(pan);
+		}
 
 		return true;
 	}
 
+	/**
+	 * Callback handler on dispose
+	 */
 	@Override
 	public boolean callbackDispose(boolean validateInput) {
 		SolarSetup global = parent.getSolarSetup();

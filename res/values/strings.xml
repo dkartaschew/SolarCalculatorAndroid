@@ -72,4 +72,8 @@
 	<string name="panelsDiection">Direction</string>
 	<string name="panelsAzimuth">Azimuth</string>
 	<string name="panelsEditPanelHowTo">To edit a row of panels, long click on the row defining the panel configuration.</string>
+	
+	<string name="confirmationTitle">Setup Confirmation</string>
+	<string name="confirmationMessage">If you are happy with the above details, please click on next to generate a report.</string>
+	<string name="confirmationYears">Report Projection (Yrs)</string>
 </resources>
