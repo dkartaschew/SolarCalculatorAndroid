@@ -8,7 +8,7 @@ import org.simpleframework.xml.ElementList;
 
 public class LocationData {
 
-	//@Element
+	// @Element
 	private Long key;
 
 	@Element
@@ -65,13 +65,38 @@ public class LocationData {
 	 * @throws Exception
 	 *             if values passed are invalid, or 12mths of data not supplied.
 	 */
-	public LocationData(Double lon, Double lat, String name, List<Double> locData, List<Double> locEfficency)
+	public LocationData(Double lon, Double lat, String name,
+			List<Double> locData, List<Double> locEfficency)
 			throws LocationDataException {
 		setLongitude(lon);
 		setLatitude(lat);
 		setLocationName(name);
 		setLocationWeatherData(locData);
 		setLocationWeatherEfficency(locEfficency);
+	}
+
+	/**
+	 * Create a new object based on the contents of an existing location data
+	 * object.
+	 * 
+	 * @param location
+	 *            The object to clone.
+	 */
+	public LocationData(LocationData location) throws LocationDataException {
+		// Copy the long, lat and name
+		setLongitude(new Double(location.longitude));
+		setLatitude(new Double(location.latitude));
+		setLocationName(new String(location.locationName));
+		// Copy the weather data.
+		locationWeatherData = new ArrayList<Double>();
+		for (double value : location.locationWeatherData) {
+			locationWeatherData.add(value);
+		}
+		// Copy the efficiency data.
+		locationWeatherEfficiency = new ArrayList<Double>();
+		for (double value : location.locationWeatherEfficiency) {
+			locationWeatherEfficiency.add(value);
+		}
 	}
 
 	/**
@@ -92,12 +117,15 @@ public class LocationData {
 	 * @throws Exception
 	 *             If the list is null or doesn't include 12 items.
 	 */
-	public void setLocationWeatherData(List<Double> locationWeatherData) throws LocationDataException {
+	public void setLocationWeatherData(List<Double> locationWeatherData)
+			throws LocationDataException {
 		if (locationWeatherData == null) {
-			throw new LocationDataException("Location weather information is null");
+			throw new LocationDataException(
+					"Location weather information is null");
 		}
 		if (locationWeatherData.size() != 12) {
-			throw new LocationDataException("Location weather information doesn't have 12mths data");
+			throw new LocationDataException(
+					"Location weather information doesn't have 12mths data");
 		}
 
 		this.locationWeatherData = locationWeatherData;
@@ -111,12 +139,15 @@ public class LocationData {
 	 * @throws Exception
 	 *             If the list is null or doesn't include 12 items.
 	 */
-	public void setLocationWeatherEfficency(List<Double> locationWeatherData) throws LocationDataException {
+	public void setLocationWeatherEfficency(List<Double> locationWeatherData)
+			throws LocationDataException {
 		if (locationWeatherData == null) {
-			throw new LocationDataException("Location weather information is null");
+			throw new LocationDataException(
+					"Location weather information is null");
 		}
 		if (locationWeatherData.size() != 12) {
-			throw new LocationDataException("Location weather information doesn't have 12mths data");
+			throw new LocationDataException(
+					"Location weather information doesn't have 12mths data");
 		}
 
 		this.locationWeatherEfficiency = locationWeatherData;
@@ -164,9 +195,11 @@ public class LocationData {
 	 * @throws Exception
 	 *             If the String is null, or has zero length
 	 */
-	public void setLocationName(String locationName) throws LocationDataException {
+	public void setLocationName(String locationName)
+			throws LocationDataException {
 		if (locationName == null || locationName.length() == 0) {
-			throw new LocationDataException("Location Name is null or zero length");
+			throw new LocationDataException(
+					"Location Name is null or zero length");
 		}
 		this.locationName = locationName;
 	}
@@ -254,8 +287,9 @@ public class LocationData {
 	 * @return String with class information.
 	 */
 	public String toString(boolean htmlTags) {
-		String content = "Location Name: " + locationName + " <br />" + "Latitude: " + latitude.toString() + "<br />"
-				+ "Longitude: " + longitude.toString() + "<br />";
+		String content = "Location Name: " + locationName + " <br />"
+				+ "Latitude: " + latitude.toString() + "<br />" + "Longitude: "
+				+ longitude.toString() + "<br />";
 		if (htmlTags) {
 			return "<html>" + content + "</html>";
 		} else {

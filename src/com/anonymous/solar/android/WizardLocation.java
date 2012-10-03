@@ -97,7 +97,21 @@ public class WizardLocation extends WizardViews {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if (spinnerInitialised) {
-					locationData = (LocationData) arg0.getItemAtPosition(arg2);
+					try {
+						locationData = new LocationData((LocationData) arg0.getItemAtPosition(arg2));
+					} catch (LocationDataException e) {
+						locationData = new LocationData();
+						try {
+							locationData.setLocationName("Unknown");
+							locationData.setLatitude(0.0);
+							locationData.setLongitude(0.0);
+						} catch (LocationDataException e1) {
+							// This shouldn't happen, but safety first.
+							e1.printStackTrace();
+						}
+						
+						e.printStackTrace();
+					}
 					// Populate the text fields.
 					name.setText(locationData.getLocationName());
 					longitude.setText(locationData.getLongitude().toString());

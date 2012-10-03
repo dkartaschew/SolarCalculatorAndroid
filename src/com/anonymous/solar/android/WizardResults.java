@@ -94,6 +94,8 @@ public class WizardResults extends WizardViews {
 		});
 		resultsTabHost.addTab(spec3);
 
+		// Cycle through all tabs to build their content as it's not addressable
+		// until it has been viewed by a user.
 		resultsTabHost.setCurrentTab(0);
 		resultsTabHost.setCurrentTab(1);
 		resultsTabHost.setCurrentTab(2);

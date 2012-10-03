@@ -11,6 +11,8 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -81,11 +83,21 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.activity_main);
 		addViews();
 		setButtonActions();
+		// Set up the progress bar in the main view.
 		progressBar = (ProgressBar) findViewById(R.id.progressBarMainActivity);
 		progressBar.setMax(wizardViews.size() - 1);
 		progressBar.setProgress(0);
+		// If SolarSetup == null, then we just started, otherwise we have just resumed.
 		if (solarSetup == null) {
 			solarSetup = new SolarSetup();
+		}
+		// Determine if we have a network connection?
+		if(!isOnline()){
+			// Display a warning to the user.
+			new SolarAlertDialog().displayAlert(this,
+					"There appears to be no network connectivity. Please enable a network connection to use this application.");
+			buttonCloseEvent();
+
 		}
 	}
 
@@ -353,5 +365,19 @@ public class MainActivity extends MapActivity {
 		if (reportYears > 0) {
 			ReportYears = reportYears;
 		}
+	}
+	
+	/**
+	 * Determine if the device has a valid network connection.
+	 * @return true if the device reports a valid network connection, otherwise false.
+	 */
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnected()) {
+	        return true;
+	    }
+	    return false;
 	}
 }

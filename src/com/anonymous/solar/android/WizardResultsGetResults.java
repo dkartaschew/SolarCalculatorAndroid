@@ -1,7 +1,6 @@
 package com.anonymous.solar.android;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
