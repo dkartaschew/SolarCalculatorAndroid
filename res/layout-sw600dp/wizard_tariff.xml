@@ -182,7 +182,4 @@
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
     </RelativeLayout>
-
-    <requestFocus />
-
 </LinearLayout>
