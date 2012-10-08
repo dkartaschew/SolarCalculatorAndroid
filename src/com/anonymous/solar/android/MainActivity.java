@@ -15,7 +15,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -87,18 +89,38 @@ public class MainActivity extends MapActivity {
 		progressBar = (ProgressBar) findViewById(R.id.progressBarMainActivity);
 		progressBar.setMax(wizardViews.size() - 1);
 		progressBar.setProgress(0);
-		// If SolarSetup == null, then we just started, otherwise we have just resumed.
+		// If SolarSetup == null, then we just started, otherwise we have just
+		// resumed.
 		if (solarSetup == null) {
 			solarSetup = new SolarSetup();
 		}
-		// Determine if we have a network connection?
-		if(!isOnline()){
-			// Display a warning to the user.
-			new SolarAlertDialog().displayAlert(this,
-					"There appears to be no network connectivity. Please enable a network connection to use this application.");
-			buttonCloseEvent();
+	}
 
+	/**
+	 * Activity started thread.
+	 */
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// Determine if we have a network connection?
+		if (!isOnline()) {
+			// Display a warning to the user.
+
+			AlertDialog dialog = new AlertDialog.Builder(this.getApplicationContext()).create();
+			dialog.setTitle("Network Connectivity Error");
+			dialog.setMessage("There appears to be no network connectivity. Please enable a network connection to use this application.");
+			dialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			dialog.show();
+			while (dialog.isShowing()) {
+			}
+			buttonCloseEvent();
 		}
+		//super.onStart();
 	}
 
 	/**
@@ -366,18 +388,19 @@ public class MainActivity extends MapActivity {
 			ReportYears = reportYears;
 		}
 	}
-	
+
 	/**
 	 * Determine if the device has a valid network connection.
-	 * @return true if the device reports a valid network connection, otherwise false.
+	 * 
+	 * @return true if the device reports a valid network connection, otherwise
+	 *         false.
 	 */
 	public boolean isOnline() {
-	    ConnectivityManager cm =
-	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnected()) {
-	        return true;
-	    }
-	    return false;
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnected()) {
+			return true;
+		}
+		return false;
 	}
 }

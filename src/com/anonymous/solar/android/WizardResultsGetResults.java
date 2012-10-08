@@ -38,12 +38,6 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 
 	@Override
 	protected SolarResult doInBackground(SolarSetup... params) {
-		// try {
-		// Thread.sleep(5000); // TODO: Let's be fun and make it like we are
-		// working.
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
 		return new SolarCalculatorService().calculateAllResults(parent, params[0]);
 	}
 
