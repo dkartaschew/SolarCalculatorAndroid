@@ -3,7 +3,12 @@ package com.anonymous.solar.android;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +18,15 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.anonymous.solar.shared.SolarPanel;
 import com.anonymous.solar.shared.SolarPanels;
@@ -52,6 +60,16 @@ public class WizardPanel extends WizardViews {
 
 	private ArrayList<SolarPanels> panels;
 
+	// Sensor services.
+	private final int DEFAULT_SENSOR_DELAY = 100000;
+	private SensorManager mSensorManager;
+	private Sensor accelerometer;
+	private Sensor magnetometer;
+	private boolean haveSensors;
+	private float deviceAzimuth = 0;
+	private float devicePitch = 0;
+	private float deviceRoll = 0;
+
 	/**
 	 * Default Constructor
 	 * 
@@ -75,6 +93,92 @@ public class WizardPanel extends WizardViews {
 
 		// Setup predefined panels
 		setupSpinner();
+
+		// Setup the compass, etc.
+
+		setupCompass();
+	}
+
+	/**
+	 * Setup the use of the compass sensor.
+	 */
+	private void setupCompass() {
+		mSensorManager = (SensorManager) parent.getSystemService(Context.SENSOR_SERVICE);
+		if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
+			// Success! There's a magnetometer.
+			accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+			magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+			haveSensors = true;
+		} else {
+			// No compass, so just ignore the functions.
+			haveSensors = false;
+		}
+	}
+
+	private class sensorEventHandler implements SensorEventListener {
+
+		private float[] mGravity;
+		private float[] mGeomagnetic;
+		private EditText Direction;
+		private EditText Azimuth;
+		private View dialog;
+
+		public sensorEventHandler(EditText Direction, EditText Azimuth, View dialog) {
+			this.Direction = Direction;
+			this.Azimuth = Azimuth;
+			this.dialog = dialog;
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor arg0, int arg1) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+				mGravity = event.values;
+			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+				mGeomagnetic = event.values;
+			if (mGravity != null && mGeomagnetic != null) {
+				float R[] = new float[9];
+				float I[] = new float[9];
+				boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+				if (success) {
+					float orientation[] = new float[3];
+					SensorManager.getOrientation(R, orientation);
+					deviceAzimuth = orientation[0]; // orientation contains:
+													// azimuth, pitch and roll
+					devicePitch = orientation[1];
+					deviceRoll = orientation[2];
+					
+					// Convert direction from -180..0..180 to 0..360
+					if(deviceAzimuth < 0){
+						deviceAzimuth = 360 + (float)Math.toDegrees(deviceAzimuth);
+					} else {
+						deviceAzimuth = (float)Math.toDegrees(deviceAzimuth);
+					}
+					
+					if(devicePitch < 0){
+						// We are facing the wrong direction so fix up the direction.
+						// Basically make north = south.
+						deviceAzimuth -= 180;
+						if(deviceAzimuth < 0){
+							deviceAzimuth = 360 + deviceAzimuth;
+						}
+					}
+					
+					// Ensure our compass is 0..360
+					deviceAzimuth = (float) (deviceAzimuth % 360.00);
+
+					// Update the text boxes.
+					Direction.setText(String.format("%.0f", deviceAzimuth));
+					Azimuth.setText(String.format("%.0f", Math.toDegrees(Math.abs(devicePitch))));
+					dialog.invalidate();
+				}
+			}
+		}
 	}
 
 	/**
@@ -162,6 +266,7 @@ public class WizardPanel extends WizardViews {
 		});
 
 		alert.show();
+
 	}
 
 	/**
@@ -183,6 +288,10 @@ public class WizardPanel extends WizardViews {
 		final EditText count = (EditText) view.findViewById(R.id.editTextPanelEditCount);
 		final EditText direction = (EditText) view.findViewById(R.id.editTextPanelEditDirection);
 		final EditText azimuth = (EditText) view.findViewById(R.id.editTextPanelEditAzimuth);
+		final CheckBox useSensors = (CheckBox) view.findViewById(R.id.checkBoxUseSensor);
+
+		useSensors.setEnabled(haveSensors);
+		final sensorEventHandler eventHandler = new sensorEventHandler(direction, azimuth, view);
 
 		// Set our information.
 		final SolarPanel panel = (SolarPanel) definedPanels.getSelectedItem();
@@ -211,16 +320,41 @@ public class WizardPanel extends WizardViews {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				mSensorManager.unregisterListener(eventHandler, accelerometer);
+				mSensorManager.unregisterListener(eventHandler, magnetometer);
 			}
 		});
 
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// Canceled.
+				mSensorManager.unregisterListener(eventHandler, accelerometer);
+				mSensorManager.unregisterListener(eventHandler, magnetometer);
 			}
 		});
 
+		// Enable the check box event handler for the sensors.
+		useSensors.setChecked(false);
+		if (haveSensors) {
+			useSensors.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// We simple enable or disable the sensor event handler for
+					// this.
+					if (isChecked) {
+						mSensorManager.registerListener(eventHandler, accelerometer, DEFAULT_SENSOR_DELAY);
+						mSensorManager.registerListener(eventHandler, magnetometer, DEFAULT_SENSOR_DELAY);
+					} else {
+						mSensorManager.unregisterListener(eventHandler, accelerometer);
+						mSensorManager.unregisterListener(eventHandler, magnetometer);
+					}
+				}
+			});
+		}
+
 		alert.show();
+		useSensors.setChecked(false);
 	}
 
 	/**
@@ -397,6 +531,10 @@ public class WizardPanel extends WizardViews {
 		final EditText count = (EditText) view.findViewById(R.id.editTextPanelEditCount);
 		final EditText direction = (EditText) view.findViewById(R.id.editTextPanelEditDirection);
 		final EditText azimuth = (EditText) view.findViewById(R.id.editTextPanelEditAzimuth);
+		final CheckBox useSensors = (CheckBox) view.findViewById(R.id.checkBoxUseSensor);
+
+		useSensors.setEnabled(haveSensors);
+		final sensorEventHandler eventHandler = new sensorEventHandler(direction, azimuth, view);
 
 		count.setText(lpanels.getPanelCount().toString());
 		direction.setText(lpanels.getPanelDirection().toString());
@@ -418,19 +556,44 @@ public class WizardPanel extends WizardViews {
 					((TextView) tr.getChildAt(2)).setText(lpanels.getPanelCount().toString());
 					((TextView) tr.getChildAt(3)).setText(String.format("%.2f", lpanels.getPanelDirection()));
 					((TextView) tr.getChildAt(4)).setText(String.format("%.2f", lpanels.getPanelAzimuth()));
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				mSensorManager.unregisterListener(eventHandler, accelerometer);
+				mSensorManager.unregisterListener(eventHandler, magnetometer);
 			}
 		});
 
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// Canceled.
+				mSensorManager.unregisterListener(eventHandler, accelerometer);
+				mSensorManager.unregisterListener(eventHandler, magnetometer);
 			}
 		});
+		// Enable the check box event handler for the sensors.
+		useSensors.setChecked(false);
+		if (haveSensors) {
+			useSensors.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// We simple enable or disable the sensor event handler for
+					// this.
+					if (isChecked) {
+						mSensorManager.registerListener(eventHandler, accelerometer, DEFAULT_SENSOR_DELAY);
+						mSensorManager.registerListener(eventHandler, magnetometer, DEFAULT_SENSOR_DELAY);
+					} else {
+						mSensorManager.unregisterListener(eventHandler, accelerometer);
+						mSensorManager.unregisterListener(eventHandler, magnetometer);
+					}
+				}
+			});
+		}
 
 		alert.show();
+		useSensors.setChecked(false);
 	}
 
 	/**

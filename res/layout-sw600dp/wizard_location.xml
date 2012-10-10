@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="text" />
+                    android:inputType="text|textNoSuggestions" />
 
                 <ImageButton
                     android:id="@+id/buttonFindLocation"
@@ -133,7 +133,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:apiKey="0_T9Ob_jBFT7i8XO5CBUstTk8uQUnmTDREcRFKw"
+                android:apiKey="0_T9Ob_jBFT4WlMFT7qcAH2NIOkHj2Gmixce7HQ"
                 android:clickable="true"
                 android:enabled="true" />
 
