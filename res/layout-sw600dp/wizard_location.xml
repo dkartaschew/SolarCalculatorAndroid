@@ -52,12 +52,34 @@
                 android:text="@string/locationName"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editTextLocationName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text" />
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/editTextLocationName"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="text" />
+
+                <ImageButton
+                    android:id="@+id/buttonFindLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Find this location"
+                    android:src="@drawable/ic_action_search" />
+
+                <ImageButton
+                    android:id="@+id/buttonLocationGPS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Use GPS to find location"
+                    android:src="@android:drawable/ic_menu_mylocation" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewLongitude"
@@ -109,9 +131,9 @@
                 style="@style/mapView"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginTop="5dp"
-                android:apiKey="0_T9Ob_jBFT4WlMFT7qcAH2NIOkHj2Gmixce7HQ"
+                android:layout_weight="1"
+                android:apiKey="0_T9Ob_jBFT7i8XO5CBUstTk8uQUnmTDREcRFKw"
                 android:clickable="true"
                 android:enabled="true" />
 
@@ -119,9 +141,9 @@
                 android:id="@+id/locationLayoutMapSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
                 android:gravity="right|bottom"
-                android:orientation="horizontal"
-                android:layout_marginBottom="50dp" >
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/textViewMapType"

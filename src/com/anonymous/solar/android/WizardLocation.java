@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.anonymous.solar.shared.LocationData;
@@ -40,6 +41,9 @@ public class WizardLocation extends WizardViews {
 	private MapView mapView;
 	private Spinner mapTypes;
 	private boolean spinnerMapInitialised = false;
+	private boolean GPSAvailable = false;
+	private ImageButton findLocation;
+	private ImageButton buttonGPS;
 
 	// Reference to the parent view.
 	private MainActivity parent;
@@ -66,6 +70,8 @@ public class WizardLocation extends WizardViews {
 		longitude = (EditText) parent.findViewById(R.id.editTextLongitude);
 		latitude = (EditText) parent.findViewById(R.id.editTextLatitude);
 		definedLocations = (Spinner) parent.findViewById(R.id.spinnerLocationPredefined);
+		findLocation = (ImageButton) parent.findViewById(R.id.buttonFindLocation);
+		buttonGPS = (ImageButton) parent.findViewById(R.id.buttonLocationGPS);
 		
 		// Setup the map
 		mapView = (MapView) parent.findViewById(R.id.mapView);
@@ -79,6 +85,22 @@ public class WizardLocation extends WizardViews {
 
 		// Setup predefined locations
 		setupSpinner();
+		
+		// setup GPS.
+		buttonGPS.setEnabled(false);
+		setupGPS();
+	}
+
+	/**
+	 * Setup and enable the GPS if available;
+	 */
+	private void setupGPS() {
+		// TODO Determine if GPS available.
+		
+		// TODO Enable GPS
+		
+		// TODO Setup up button handler for getting information from GPS.
+		
 	}
 
 	/**
