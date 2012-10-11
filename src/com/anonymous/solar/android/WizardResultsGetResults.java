@@ -63,7 +63,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			return;
 		} else {
 			// Add our data to the summary view
-			summary.setText(Html.fromHtml(soapResult.toString2()));
+			summary.setText(Html.fromHtml(soapResult.toString2() + "<br />" + soapResult.getSolarSetup().toString()));
 			// Add our data to the graph
 			LinearLayout tabGraph = (LinearLayout) tabs.get(1).findViewById(R.id.layoutResultsGraph);
 			tabGraph.removeAllViews(); // remove old graphs
