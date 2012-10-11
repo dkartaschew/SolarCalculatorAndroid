@@ -220,7 +220,6 @@ public class WizardPanel extends WizardViews {
 		AlertDialog.Builder alert = new AlertDialog.Builder(parent);
 
 		alert.setTitle("Edit Panel Information");
-		// alert.setMessage("Modify Inverter Information");
 
 		LayoutInflater inflater = parent.getLayoutInflater();
 		FrameLayout f1 = (FrameLayout) parent.findViewById(android.R.id.custom);
@@ -335,6 +334,7 @@ public class WizardPanel extends WizardViews {
 
 		// Enable the check box event handler for the sensors.
 		useSensors.setChecked(false);
+		useSensors.setEnabled(haveSensors);
 		if (haveSensors) {
 			useSensors.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -574,6 +574,7 @@ public class WizardPanel extends WizardViews {
 		});
 		// Enable the check box event handler for the sensors.
 		useSensors.setChecked(false);
+		useSensors.setEnabled(haveSensors);
 		if (haveSensors) {
 			useSensors.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
