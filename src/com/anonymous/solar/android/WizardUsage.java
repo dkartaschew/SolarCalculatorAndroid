@@ -67,7 +67,7 @@ public class WizardUsage extends WizardViews {
 		
 		if(validateInput){
 			if(dailyAmount <= 0.0 && hourlyAmount <= 0.0 && monthlyAmount <= 0.0){
-				new SolarAlertDialog().displayAlert(parent,
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
 						"Please enter at least 1 valid amount.");
 				return false;
 			}

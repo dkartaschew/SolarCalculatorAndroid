@@ -1,7 +1,12 @@
 package com.anonymous.solar.shared;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
 /**
  * Class to hold the result of the solar output calculation from the server and
@@ -11,12 +16,20 @@ import java.util.List;
  * @version 1.0
  * 
  */
+@Root(name="SolarResult")
 public class SolarResult {
 
+	@Element
+	protected long id;
+	@Element
 	protected double dailySavings;
+	@Element
 	protected double monthlySavings;
+	@ElementList (inline=true)
 	protected List<Double> savingsOverYears;
+	@Element
 	protected SolarSetup solarSetup;
+	@Element
 	protected double yearlySavings;
 
 	public SolarResult() {
@@ -42,7 +55,7 @@ public class SolarResult {
 
 	public void setSolarSetup(SolarSetup solarSetup) throws SolarResultException {
 		SolarSetupExceptionCheck(solarSetup);
-		solarSetup = solarSetup;
+		this.solarSetup = solarSetup;
 	}
 
 	public double getDailySavings() {
@@ -98,9 +111,13 @@ public class SolarResult {
 			throw new SolarResultException("You cannot have an empty array of panels");
 		}
 	}
-
+	
 	@Override
-	public String toString() {
+	public String toString(){
+		return solarSetup.getSetupName() + " " + this.getDateTime().toString();
+	}
+	
+	public String toString2() {
 		String details = "<html>";
 
 		details += "<b>Daily Savings: </b>";
@@ -114,6 +131,20 @@ public class SolarResult {
 
 		details += "</html>";
 		return details;
+	}
+
+	public Date getDateTime() {
+		// TODO Auto-generated method stub
+		return new Date();
+	}
+
+	public long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+	
+	public void setId(long id){
+		this.id = id;
 	}
 
 }

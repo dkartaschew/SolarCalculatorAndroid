@@ -26,7 +26,7 @@ public class SolarSetup {
 	protected SolarInverter inverter;
 	@Element
 	protected LocationData locationInformation;
-	@Element
+	@Element(required=false)
 	protected String setupDescription;
 	@Element
 	protected String setupName;

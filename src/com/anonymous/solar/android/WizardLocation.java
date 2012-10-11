@@ -176,7 +176,7 @@ public class WizardLocation extends WizardViews {
 
 		// If GPS/Wifi Available, add the listener.
 		if (GPSAvailable) {
-			locationService.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+			locationService.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, locationListener);
 			OnClickListener gpsButtonListener = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -393,14 +393,14 @@ public class WizardLocation extends WizardViews {
 				// See if we have co-ordinates?
 				if (locationData.getLatitude() == null) {
 					// Oops!
-					new SolarAlertDialog().displayAlert(parent,
+					new SolarAlertDialog().displayAlert(parent, "Missing Input",
 							"Invalid Location, please ensure a location has been selected");
 					name.requestFocus();
 					return false;
 				} else {
 					// set the name!
 					if (name.getText() == null || name.getText().length() == 0) {
-						new SolarAlertDialog().displayAlert(parent,
+						new SolarAlertDialog().displayAlert(parent, "Missing Input",
 								"Invalid Location, please ensure a location name has been entered");
 						name.requestFocus();
 						return false;
@@ -410,7 +410,7 @@ public class WizardLocation extends WizardViews {
 			try {
 				locationData.setLocationName(name.getText().toString());
 			} catch (LocationDataException e) {
-				new SolarAlertDialog().displayAlert(parent,
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
 						"Invalid Name, please ensure a valid location name has been entered");
 				name.requestFocus();
 				return false;

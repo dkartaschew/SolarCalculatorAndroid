@@ -136,7 +136,7 @@ public class WizardTariff extends WizardViews {
 			customer.setAnnualTariffIncrease(feeIncreaseAmount);
 		} catch (Exception e) {
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent,
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
 						"Invalid parameters entered, please ensure values entered are correct");
 
 				e.printStackTrace();

@@ -212,20 +212,20 @@ public class WizardElectrical extends WizardViews {
 		} catch (Exception e) {
 			wireLength = 0.0;
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Please enter a wire length");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter a wire length");
 				return false;
 			}
 		}
 		try {
 			wireEff = Double.parseDouble(wiringEfficiency.getText().toString());
 			if (wireEff > 100.00 && validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Wire Efficiency must be between 0.00% and 100.00%");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Wire Efficiency must be between 0.00% and 100.00%");
 				return false;
 			}
 		} catch (Exception e) {
 			wireEff = 0.00;
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Please enter a wire efficiency between 0.00% and 100%");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter a wire efficiency between 0.00% and 100%");
 				return false;
 			}
 		}
@@ -236,7 +236,7 @@ public class WizardElectrical extends WizardViews {
 			global.setWireEfficiency(wireEff);
 		} catch (Exception e) {
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent,
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
 						"Invalid parameters entered, please ensure values entered are correct");
 
 				e.printStackTrace();

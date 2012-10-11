@@ -676,7 +676,7 @@ public class WizardPanel extends WizardViews {
 		SolarSetup global = parent.getSolarSetup();
 		if (validateInput) {
 			if (panels.size() == 0) {
-				new SolarAlertDialog().displayAlert(parent, "Please enter at least 1 solar panel configuration");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter at least 1 solar panel configuration");
 				return false;
 			}
 		}
@@ -685,7 +685,7 @@ public class WizardPanel extends WizardViews {
 				global.setSolarPanels(panels);
 			} catch (SolarSetupException e) {
 				if (validateInput) {
-					new SolarAlertDialog().displayAlert(parent, "Please enter at least 1 solar panel configuration");
+					new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter at least 1 solar panel configuration");
 					return false;
 				}
 			}

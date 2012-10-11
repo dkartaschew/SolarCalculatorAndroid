@@ -1,39 +1,43 @@
 package com.anonymous.solar.android;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
-import com.anonymous.solar.shared.LocationData;
-import com.anonymous.solar.shared.LocationDataException;
-import com.anonymous.solar.shared.SolarSetup;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
-
-import android.location.Geocoder;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import com.anonymous.solar.shared.SolarResult;
+import com.anonymous.solar.shared.SolarSetup;
+import com.google.android.maps.MapActivity;
 
 /**
  * Main Entry Point for the wizard interface for the Android Application
@@ -47,6 +51,7 @@ public class MainActivity extends MapActivity {
 	private int WizardViewCount = 0;
 	private int WizardViewMember = 0;
 	private int ReportYears = 25;
+	private MainActivity parentContext;
 
 	// Wizard components
 	private ViewFlipper wizardViewFlipper;
@@ -83,6 +88,7 @@ public class MainActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		parentContext = this;
 		addViews();
 		setButtonActions();
 		// Set up the progress bar in the main view.
@@ -120,7 +126,7 @@ public class MainActivity extends MapActivity {
 			}
 			buttonCloseEvent();
 		}
-		//super.onStart();
+		// super.onStart();
 	}
 
 	/**
@@ -354,9 +360,201 @@ public class MainActivity extends MapActivity {
 			buttonNextEvent(); // Advance to next screen.
 			return true;
 		case R.id.menuRetrieve:
+			// Display the menu to select a saved item.
+			displaySavedItems();
+			return true;
+		case R.id.menuManage:
+			displayManageItems();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/**
+	 * Display a dialog box of all saved items, and if the user selects, one
+	 * return it...
+	 * 
+	 * @return The Solar Result object that was retrieved, or null for no
+	 *         selection.
+	 */
+	private void displaySavedItems() {
+		DeviceLocalStorage database = new DeviceLocalStorage(this, this);
+		database.open();
+		// Get our items off the internal storage.
+		List<SolarResult> results = database.getAllResults();
+		database.close();
+		if (results == null || results.size() == 0) {
+			// Oops no items?
+			new SolarAlertDialog().displayAlert(this, "No Items", "No results have been stored on this device");
+			return;
+		}
+
+		// If we have some items, display them, otherwise return null;
+
+		// Create the dialog.
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Saved Items");
+
+		// Add our saved items.
+		ListView itemList = new ListView(this);
+		ArrayAdapter<SolarResult> itemAdapter = new ArrayAdapter<SolarResult>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, results);
+		itemList.setAdapter(itemAdapter);
+		itemList.setClickable(true);
+
+		// Add the list to the dialog.
+		alert.setView(itemList);
+		// Add a Close button
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+
+			}
+		});
+		final Dialog dialog = alert.create();
+
+		// Add our click handler.
+		itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+				SolarResult result = (SolarResult) arg0.getAdapter().getItem(arg2);
+				dialog.dismiss();
+				if (result != null) {
+					// Set our configuration
+					solarSetup = result.getSolarSetup();
+					// Change to the wizard result pane.
+
+					// And display the results.
+					wizardViewFlipper.setInAnimation(animFlipInForward);
+					wizardViewFlipper.setOutAnimation(animFlipOutForward);
+					WizardViewMember = 8;
+					wizardViewFlipper.setDisplayedChild(WizardViewMember);
+					WizardResults results = (WizardResults) wizardViews.get(WizardViewMember);
+					WizardResultsGetResults resultsEngine = new WizardResultsGetResults(parentContext, results.tabs);
+					resultsEngine.displayResults(result, false);
+					progressBar.setProgress(WizardViewMember);
+					TextView txt = (TextView) findViewById(R.id.textViewProgress);
+					txt.setText(String.format("%d / %d", WizardViewMember + 1, WizardViewCount));
+				}
+			}
+
+		});
+		dialog.show();
+		return;
+	}
+
+	/**
+	 * Display a dialog box of all saved items, and if the user selects, one
+	 * return it...
+	 * 
+	 * @return The Solar Result object that was retrieved, or null for no
+	 *         selection.
+	 */
+	private void displayManageItems() {
+		DeviceLocalStorage database = new DeviceLocalStorage(this, this);
+		database.open();
+		// Get our items off the internal storage.
+		List<SolarResult> results = database.getAllResults();
+		database.close();
+		if (results == null || results.size() == 0) {
+			// Oops no items?
+			new SolarAlertDialog().displayAlert(this, "No Items", "No results have been stored on this device");
+			return;
+		}
+
+		// If we have some items, display them, otherwise return null;
+
+		// Create the dialog.
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Saved Items");
+
+		// Add our saved items.
+		final ListView itemList = new ListView(this);
+		ItemsAdapter adapter = new ItemsAdapter(this, results);
+		itemList.setAdapter(adapter);
+		itemList.setClickable(true);
+		itemList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				CheckedTextView tv = (CheckedTextView) arg1;
+				toggle(tv);
+			}
+		});
+
+		alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				DeviceLocalStorage database = new DeviceLocalStorage(parentContext, parentContext);
+				database.open();
+				for (int i = 0; i < itemList.getChildCount(); i++) {
+					View view = itemList.getChildAt(i);
+					CheckedTextView cv = (CheckedTextView) view.findViewById(R.id.checkList);
+					if (cv.isChecked()) {
+						Log.i("result delete", cv.getText().toString());
+						SolarResult result = (SolarResult) itemList.getItemAtPosition(i);
+						database.deleteResult(result);
+					}
+				}
+				database.close();
+			}
+		});
+		alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+
+			}
+		});
+		alert.setView(itemList);
+		alert.show();
+		return;
+	}
+
+	/**
+	 * Customer adapter class for the management of saved results.
+	 */
+	private class ItemsAdapter extends BaseAdapter {
+		List<SolarResult> items;
+
+		public ItemsAdapter(Context context, List<SolarResult> item) {
+			this.items = item;
+		}
+
+		// @Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View v = convertView;
+			if (v == null) {
+				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				v = vi.inflate(R.layout.results_row, null);
+			}
+			CheckedTextView post = (CheckedTextView) v.findViewById(R.id.checkList);
+			post.setText(items.get(position).toString());
+			return v;
+		}
+
+		public int getCount() {
+			return items.size();
+		}
+
+		public SolarResult getItem(int position) {
+			return items.get(position);
+		}
+
+		public long getItemId(int position) {
+			return position;
+		}
+	}
+
+	/**
+	 * Toggle the line item in the list.
+	 * 
+	 * @param v
+	 */
+	private void toggle(CheckedTextView v) {
+		if (v.isChecked()) {
+			v.setChecked(false);
+		} else {
+			v.setChecked(true);
 		}
 	}
 

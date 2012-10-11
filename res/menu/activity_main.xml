@@ -1,16 +1,24 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menuNew"
-        android:title="@string/menuNew"
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuNew"
         android:orderInCategory="100"
-        android:showAsAction="never" />
-    
-    <item android:id="@+id/menuRetrieve"
-        android:title="@string/menuRetrieve"
+        android:showAsAction="never"
+        android:title="@string/menuNew"/>
+    <item
+        android:id="@+id/menuRetrieve"
         android:orderInCategory="100"
-        android:showAsAction="never" />
-    
-    <item android:id="@+id/menuQuit"
-        android:title="@string/menuQuit"
+        android:showAsAction="never"
+        android:title="@string/menuRetrieve"/>
+    <item
+        android:id="@+id/menuManage"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="never"
+        android:title="@string/menuManage"/>
+    <item
+        android:id="@+id/menuQuit"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menuQuit"/>
+
 </menu>

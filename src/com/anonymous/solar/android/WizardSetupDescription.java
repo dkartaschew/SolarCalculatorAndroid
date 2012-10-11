@@ -82,7 +82,7 @@ public class WizardSetupDescription extends WizardViews {
 		if (validateInput) {
 			if ((name.getText() == null) || (name.getText().length() == 0)) {
 				// Oops, missing data, need to handle this.
-				new SolarAlertDialog().displayAlert(parent, "Invalid Parameter, please ensure a name is present");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Invalid Parameter, please ensure a name is present");
 				return false;
 			}
 		}
@@ -97,7 +97,7 @@ public class WizardSetupDescription extends WizardViews {
 				global.setSetupDescription(description.getText().toString());
 			} catch (SolarSetupException e) {
 				// Oops, missing data, need to handle this.
-				new SolarAlertDialog().displayAlert(parent, "Invalid Parameter, please ensure a name is present");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Invalid Parameter, please ensure a name is present");
 				name.requestFocus();
 				return false;
 			} catch (Exception e){

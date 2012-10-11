@@ -27,7 +27,7 @@ public class WizardResults extends WizardViews {
 
 	// Layout widgets.
 	private TabHost resultsTabHost;
-	private ArrayList<View> tabs;
+	ArrayList<View> tabs;
 
 	// Reference to the parent view.
 	private MainActivity parent;

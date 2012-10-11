@@ -5,7 +5,8 @@
     <string name="title_activity_main">SolarCalculator</string>
     
     <string name="menuNew">New</string>
-    <string name="menuRetrieve">Retrieve</string>
+    <string name="menuRetrieve">Retrieve Results</string>
+    <string name="menuManage">Manage Results</string>
     <string name="menuQuit">Quit</string>
 
     <string name="next">Next</string>

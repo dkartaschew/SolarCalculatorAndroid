@@ -75,7 +75,7 @@ public class WizardConfirmation extends WizardViews {
 		if ((projection.getText() == null) || (projection.getText().length() == 0)) {
 			// Oops, missing data, need to handle this.
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Invalid Parameter, please ensure a year value is present");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Invalid Parameter, please ensure a year value is present");
 				return false;
 			}
 		}
@@ -83,7 +83,7 @@ public class WizardConfirmation extends WizardViews {
 			parent.setReportYears(Integer.parseInt(projection.getText().toString()));
 		} catch (Exception e) {
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent,
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
 						"Invalid Parameter, please ensure a year value is present and valid");
 				return false;
 			}

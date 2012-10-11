@@ -1,6 +1,7 @@
 package com.anonymous.solar.android;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -45,6 +46,16 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		if (progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}
+		displayResults(soapResult, true);
+	}
+
+	/**
+	 * Update the results display area.
+	 * 
+	 * @param soapResult
+	 * @param storeResults
+	 */
+	public void displayResults(SolarResult soapResult, boolean storeResults) {
 		TextView summary = (TextView) parent.findViewById(R.id.textViewResultsSummaryText);
 
 		if (soapResult == null) {
@@ -52,7 +63,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			return;
 		} else {
 			// Add our data to the summary view
-			summary.setText(Html.fromHtml(soapResult.toString()));
+			summary.setText(Html.fromHtml(soapResult.toString2()));
 			// Add our data to the graph
 			LinearLayout tabGraph = (LinearLayout) tabs.get(1).findViewById(R.id.layoutResultsGraph);
 			tabGraph.removeAllViews(); // remove old graphs
@@ -60,6 +71,15 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			// Add our data to the table.
 			TableLayout tabResults = (TableLayout) tabs.get(2).findViewById(R.id.tableResults);
 			createTable(tabResults, soapResult.getSavingsOverYears());
+
+			// Store our result set.
+			if (storeResults) {
+				DeviceLocalStorage database = new DeviceLocalStorage(parent, parent);
+				database.open();
+				database.createResult(soapResult);
+				database.close();
+			}
+
 		}
 		TabHost resultsTabHost = (TabHost) parent.findViewById(R.id.tabHostResults);
 		resultsTabHost.setEnabled(true);
@@ -78,13 +98,13 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		// Generate the header row.
 		TableRow row = new TableRow(parent);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    params.setMargins(1, 1, 1, 1);
+		params.setMargins(1, 1, 1, 1);
 
 		// Add our header columns (Year)
 		int numberOfYears = savingsOverYears.size();
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
-			header.setText(String.format("Year %d", i+1));
+			header.setText(String.format("Year %d", i + 1));
 			header.setGravity(Gravity.CENTER);
 			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 			header.setPadding(1, 1, 1, 1);

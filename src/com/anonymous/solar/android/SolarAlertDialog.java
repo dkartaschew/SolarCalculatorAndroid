@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 
 public class SolarAlertDialog {
 	
-	public void displayAlert(MainActivity context, String msg){
+	public void displayAlert(MainActivity context, String title, String msg){
 		
 		AlertDialog dialog = new AlertDialog.Builder(context).create();
-		dialog.setTitle("Missing Input");
+		dialog.setTitle(title);
 		dialog.setMessage(msg);
 		dialog.setButton("OK", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
