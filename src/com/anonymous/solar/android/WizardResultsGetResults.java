@@ -26,15 +26,16 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 	private ArrayList<View> tabs;
 	final private static int resultTableHeaderColor = 0xffcccccc;
 
-	public WizardResultsGetResults(MainActivity parent, ArrayList<View> tabs) {
+	public WizardResultsGetResults(MainActivity parent, ArrayList<View> tabs, ProgressDialog progressDialog) {
 		this.parent = parent;
-		progressDialog = new ProgressDialog(parent);
+		// progressDialog = new ProgressDialog(parent);
+		this.progressDialog = progressDialog;
 		this.tabs = tabs;
 	}
 
 	protected void onPreExecute() {
-		this.progressDialog.setMessage("Waiting for results.");
-		this.progressDialog.show();
+		// this.progressDialog.setMessage("Waiting for results.");
+		// this.progressDialog.show();
 	}
 
 	@Override
@@ -46,6 +47,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		if (progressDialog.isShowing()) {
 			progressDialog.dismiss();
 		}
+		parent.setSolarResult(soapResult);
 		displayResults(soapResult, true);
 	}
 
@@ -67,7 +69,11 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			// Add our data to the graph
 			LinearLayout tabGraph = (LinearLayout) tabs.get(1).findViewById(R.id.layoutResultsGraph);
 			tabGraph.removeAllViews(); // remove old graphs
-			tabGraph.addView(new WizardResultGraph(parent, soapResult.getSavingsOverYears()));
+			ArrayList<List<Double>> list = new ArrayList<List<Double>>();
+			list.add(soapResult.getSavingsOverYears());
+			ArrayList<String> columns = new ArrayList<String>();
+			columns.add("Savings");
+			tabGraph.addView(new WizardResultGraph(parent, "Cumulative Savings", "Year", list, columns));
 			// Add our data to the table.
 			TableLayout tabResults = (TableLayout) tabs.get(2).findViewById(R.id.tableResults);
 			createTable(tabResults, soapResult.getSavingsOverYears());
@@ -79,6 +85,11 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 				database.createResult(soapResult);
 				database.close();
 			}
+
+			// Add our data to the comparison view.
+			LinearLayout tabComparisonGraph = (LinearLayout) tabs.get(3).findViewById(R.id.layoutResultsComparison);
+			tabComparisonGraph.removeAllViews(); // remove old comparisons
+			tabComparisonGraph.addView(new WizardResultsComparison(parent, soapResult, tabComparisonGraph));
 
 		}
 		TabHost resultsTabHost = (TabHost) parent.findViewById(R.id.tabHostResults);

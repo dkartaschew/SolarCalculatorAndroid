@@ -20,15 +20,20 @@ import android.graphics.Paint;
 
 public class WizardResultGraph extends DemoView {
 
+	private String header;
+	private String row;
+
 	/**
 	 * constructor
 	 * 
 	 * @param context
 	 */
-	public WizardResultGraph(Context context, List<Double> results) {
+	public WizardResultGraph(Context context, String header, String row, List<List<Double>> results,
+			List<String> columns) {
 		super(context);
-
-		XYSeriesCollection dataset = createDataset(results);
+		this.header = header;
+		this.row = row;
+		XYSeriesCollection dataset = createDataset(results, columns);
 		AFreeChart chart = createChart(dataset);
 
 		setChart(chart);
@@ -39,19 +44,24 @@ public class WizardResultGraph extends DemoView {
 	 * 
 	 * @return The dataset.
 	 */
-	private static XYSeriesCollection createDataset(List<Double> results) {
+	private XYSeriesCollection createDataset(List<List<Double>> results, List<String> columns) {
 
 		XYSeriesCollection dataset = new XYSeriesCollection();
 
-		// Add in cumulative savings
-		double cumulativeSavings = 0.0;
-		XYSeries cumulativeSavingsSeries = new XYSeries("Cumulative Savings");
-		for (int i = 0; i < results.size(); i++) {
-			cumulativeSavings += results.get(i);
-			cumulativeSavingsSeries.add(i + 1, cumulativeSavings);
-		}
+		for (int i = 0; i < columns.size(); i++) {
+			
+			List<Double> resultSet = results.get(i);
 
-		dataset.addSeries(cumulativeSavingsSeries);
+			// Add in cumulative savings
+			double cumulativeSavings = 0.0;
+			XYSeries cumulativeSavingsSeries = new XYSeries(columns.get(i));
+			for (int j = 0; j < resultSet.size(); j++) {
+				cumulativeSavings += resultSet.get(j);
+				cumulativeSavingsSeries.add(j + 1, cumulativeSavings);
+			}
+
+			dataset.addSeries(cumulativeSavingsSeries);
+		}
 
 		return dataset;
 
@@ -65,9 +75,9 @@ public class WizardResultGraph extends DemoView {
 	 * 
 	 * @return The chart.
 	 */
-	private static AFreeChart createChart(XYSeriesCollection dataset) {
+	private AFreeChart createChart(XYSeriesCollection dataset) {
 
-		AFreeChart chart = ChartFactory.createXYLineChart("Calculation Results", "Year", "Savings ($)", dataset,
+		AFreeChart chart = ChartFactory.createXYLineChart(header, row, "Savings ($)", dataset,
 				PlotOrientation.VERTICAL, true, true, false);
 
 		// get a reference to the plot for further customisation

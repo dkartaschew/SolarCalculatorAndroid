@@ -121,7 +121,7 @@ public class SolarCalculatorService {
 			connection.setRequestProperty("Content-Length", "" + soapBody.getBytes().length);
 			connection.setRequestProperty("User-Agent", "kSOAP/2.0");
 			connection.setRequestMethod("POST");
-
+			connection.setDoOutput(true);
 			// Send the Web service request.
 			OutputStream os = connection.getOutputStream();
 			os.write(soapBody.getBytes(), 0, soapBody.getBytes().length);
@@ -164,7 +164,9 @@ public class SolarCalculatorService {
 			result.setSavingsOverYears(savings);
 
 		} catch (Exception e) {
-			System.out.println(envelope.bodyIn.toString());
+			if (envelope != null && envelope.bodyIn != null) {
+				System.out.println(envelope.bodyIn.toString());
+			}
 			e.printStackTrace();
 			return null;
 		}

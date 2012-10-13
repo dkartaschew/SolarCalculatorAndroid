@@ -84,4 +84,5 @@
 	<string name="resultsGraph">Graph</string>
 	<string name="resultsDetail">Results Table</string>
 	<string name="resultsWaitSummary">Waiting for results&#8230;</string>
+	<string name="comparisonAdd">Add</string>
 </resources>

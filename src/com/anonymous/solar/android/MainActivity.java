@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -80,6 +81,7 @@ public class MainActivity extends MapActivity {
 
 	// State of the current solar setup.
 	private SolarSetup solarSetup;
+	private SolarResult solarResult;
 
 	/**
 	 * Main Activity entry point.
@@ -240,6 +242,15 @@ public class MainActivity extends MapActivity {
 		return solarSetup;
 	}
 
+	/**
+	 * Set the SolarResult for gloabl operations.
+	 * 
+	 * @param result
+	 */
+	public void setSolarResult(SolarResult result) {
+		this.solarResult = result;
+	}
+
 	/********************************************************************
 	 * Event Handlers
 	 ********************************************************************/
@@ -311,7 +322,15 @@ public class MainActivity extends MapActivity {
 				wizardViewFlipper.setOutAnimation(animFlipOutBackward);
 				wizardViewFlipper.showPrevious();
 				WizardViewMember--;
-				wizardViews.get(WizardViewMember).callbackStart();
+				// Set special case for results pane.
+				if (WizardViewMember != WizardViewCount - 2) {
+					wizardViews.get(WizardViewMember).callbackStart();
+				} else {
+					WizardResults results = (WizardResults) wizardViews.get(WizardViewMember);
+					WizardResultsGetResults resultsEngine = new WizardResultsGetResults(parentContext, results.tabs,
+							null);
+					resultsEngine.displayResults(solarResult, false);
+				}
 				progressBar.setProgress(WizardViewMember);
 			}
 
@@ -423,6 +442,7 @@ public class MainActivity extends MapActivity {
 				dialog.dismiss();
 				if (result != null) {
 					// Set our configuration
+					solarResult = result;
 					solarSetup = result.getSolarSetup();
 					// Change to the wizard result pane.
 
@@ -432,11 +452,13 @@ public class MainActivity extends MapActivity {
 					WizardViewMember = 8;
 					wizardViewFlipper.setDisplayedChild(WizardViewMember);
 					WizardResults results = (WizardResults) wizardViews.get(WizardViewMember);
-					WizardResultsGetResults resultsEngine = new WizardResultsGetResults(parentContext, results.tabs);
+					WizardResultsGetResults resultsEngine = new WizardResultsGetResults(parentContext, results.tabs,
+							null);
 					resultsEngine.displayResults(result, false);
 					progressBar.setProgress(WizardViewMember);
 					TextView txt = (TextView) findViewById(R.id.textViewProgress);
 					txt.setText(String.format("%d / %d", WizardViewMember + 1, WizardViewCount));
+					backButton.setVisibility(View.VISIBLE);
 				}
 			}
 

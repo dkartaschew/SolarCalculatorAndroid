@@ -5,6 +5,7 @@ package com.anonymous.solar.android;
 
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -93,12 +94,28 @@ public class WizardResults extends WizardViews {
 			}
 		});
 		resultsTabHost.addTab(spec3);
+		
+		TabHost.TabSpec spec4 = resultsTabHost.newTabSpec("Comparisons");
+		spec4.setIndicator("Comparisons");
+		spec4.setContent(new TabContentFactory() {
+			
+			@Override
+			public View createTabContent(String tag) {
+				LayoutInflater inflater = parent.getLayoutInflater();
+				FrameLayout f1 = (FrameLayout) parent.findViewById(android.R.id.custom);
+				View view = inflater.inflate(R.layout.wizard_results_comparison, f1, false);
+				tabs.add(view);
+				return view;
+			}
+		});
+		resultsTabHost.addTab(spec4);
 
 		// Cycle through all tabs to build their content as it's not addressable
 		// until it has been viewed by a user.
 		resultsTabHost.setCurrentTab(0);
 		resultsTabHost.setCurrentTab(1);
 		resultsTabHost.setCurrentTab(2);
+		resultsTabHost.setCurrentTab(3);
 		resultsTabHost.setCurrentTab(0);
 	}
 
@@ -119,7 +136,10 @@ public class WizardResults extends WizardViews {
 			// Get our Solar Setup and call the webservice.
 			// Have it display the progress dialog and populate the tabs when done.
 			// Launch background thread to get our data.
-			new WizardResultsGetResults(this.parent, tabs).execute(global);
+			ProgressDialog progressDialog = new ProgressDialog(parent);
+			progressDialog.setMessage("Waiting for results.");
+			progressDialog.show();
+			new WizardResultsGetResults(this.parent, tabs, progressDialog).execute(global);
 		}
 		return true;
 	}
