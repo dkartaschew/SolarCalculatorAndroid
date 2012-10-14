@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_marginBottom="50dp"
-    android:orientation="vertical"
-    android:weightSum="1.0" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -29,29 +28,35 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutComparisonGraph"
-        android:layout_width="wrap_content"
-        android:layout_height="0dip"
-        android:layout_margin="5dp"
-        android:layout_weight="0.4" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="0dip"
-        android:minHeight="250dp"
-        android:layout_gravity="top|center_horizontal"
-        android:layout_weight="0.6"
-        android:focusable="true"
-        android:scrollbarAlwaysDrawVerticalTrack="false"
-        android:scrollbars="horizontal|vertical" >
-
-        <TableLayout
-            android:id="@+id/tableComparisonResults"
+        <LinearLayout
+            android:id="@+id/layoutComparisonGraph"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="top|left" />
+            android:layout_height="0dip"
+            android:layout_margin="5dp"
+            android:layout_weight="1" />
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_weight="1"
+            android:minHeight="300dp"
+            android:fillViewport="true"
+            android:focusable="true"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:scrollbars="horizontal|vertical" >
+
+            <TableLayout
+                android:id="@+id/tableComparisonResults"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="top|left" />
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>
