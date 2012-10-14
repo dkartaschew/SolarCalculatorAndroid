@@ -3,8 +3,6 @@ package com.anonymous.solar.android;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.anonymous.solar.shared.SolarResult;
-
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.TableRow.LayoutParams;
+import android.widget.TextView;
+
+import com.anonymous.solar.shared.SolarResult;
 
 public class WizardResultsComparison extends View {
 
@@ -31,7 +31,7 @@ public class WizardResultsComparison extends View {
 	final private static int resultTableHeaderColor = 0xffcccccc;
 
 	// This List holds all the results we wish to compare against.
-	private ArrayList<SolarResult> comparisons;
+	private final ArrayList<SolarResult> comparisons = new ArrayList<SolarResult>();
 
 	public WizardResultsComparison(Context context) {
 		super(context);
@@ -52,9 +52,8 @@ public class WizardResultsComparison extends View {
 		this.parent = parent;
 
 		// Set our default make up.
-		comparisons = new ArrayList<SolarResult>();
 		comparisons.add(soapResult);
-		
+
 		// Ensure we are at a clean slate.
 		parentView.removeAllViews();
 
@@ -91,6 +90,15 @@ public class WizardResultsComparison extends View {
 		availableResults.setAdapter(adapter);
 
 		// Define our add button actions.
+		OnClickListener addButtonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				comparisons.add((SolarResult) availableResults.getSelectedItem());
+				createGraph(comparisons);
+				createTable(comparisons);
+			}
+		};
+		buttonAdd.setOnClickListener(addButtonListener);
 
 		// Create our basic graph.
 		layoutGraph = (LinearLayout) thisView.findViewById(R.id.layoutComparisonGraph);
@@ -99,7 +107,6 @@ public class WizardResultsComparison extends View {
 		// Create our table of comparisons.
 		tableComparison = (TableLayout) thisView.findViewById(R.id.tableComparisonResults);
 		createTable(comparisons);
-
 	}
 
 	/**
@@ -109,6 +116,11 @@ public class WizardResultsComparison extends View {
 	 */
 	private void createTable(ArrayList<SolarResult> rows) {
 		tableComparison.removeAllViews();
+		
+		// If we have nothing to compare, then hide the table.
+		if(comparisons.size() == 0){
+			return;
+		}
 
 		// Generate the header row.
 		TableRow row = new TableRow(parent);
@@ -161,6 +173,39 @@ public class WizardResultsComparison extends View {
 		// Add our row to the table.
 		row2.setPadding(1, 1, 1, 1);
 		tableComparison.addView(row2);
+
+		// Add our remove buttons.
+		TableRow row3 = new TableRow(parent);
+		TextView rowHeader3 = new TextView(parent);
+		rowHeader3.setText("");
+		rowHeader3.setGravity(Gravity.CENTER);
+		rowHeader3.setPadding(5, 1, 5, 1);
+		rowHeader3.setLayoutParams(params);
+		rowHeader3.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row3.addView(rowHeader3);
+		// Create our remove buttons for each column of the comparisons.
+		for (int i = 0; i < numResults; i++) {
+			Button removeButton = new Button(parent);
+			final SolarResult resultRemove = comparisons.get(i);
+			removeButton.setText("Remove");
+			removeButton.setGravity(Gravity.CENTER);
+			removeButton.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			removeButton.setPadding(0, 0, 0, 0);
+			// Add our removal button.
+			OnClickListener removeButtonListener = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					comparisons.remove(resultRemove);
+					createGraph(comparisons);
+					createTable(comparisons);
+				}
+			};
+			removeButton.setOnClickListener(removeButtonListener);
+			row3.addView(removeButton);
+		}
+		// Add our row to the table.
+		row3.setPadding(1, 1, 1, 1);
+		tableComparison.addView(row3);
 	}
 
 	/**

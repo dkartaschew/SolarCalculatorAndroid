@@ -10,7 +10,6 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import com.anonymous.solar.shared.SolarInverter;
-import com.anonymous.solar.shared.TariffRate;
 
 /**
  * SOAP Handler class for getting Inverter Information from the AppEngine Web

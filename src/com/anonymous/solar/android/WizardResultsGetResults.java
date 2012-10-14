@@ -113,6 +113,14 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 
 		// Add our header columns (Year)
 		int numberOfYears = savingsOverYears.size();
+		
+		TextView rowHeader3 = new TextView(parent);
+		rowHeader3.setText("");
+		rowHeader3.setGravity(Gravity.CENTER);
+		rowHeader3.setPadding(5, 1, 5, 1);
+		rowHeader3.setLayoutParams(params);
+		rowHeader3.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row.addView(rowHeader3);
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
 			header.setText(String.format("Year %d", i + 1));
@@ -132,6 +140,15 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		TableRow row2 = new TableRow(parent);
 
 		// Add our data
+		TextView rowHeader = new TextView(parent);
+		rowHeader.setText("Annual Savings");
+		rowHeader.setGravity(Gravity.CENTER);
+		rowHeader.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		rowHeader.setPadding(5, 1, 5, 1);
+		rowHeader.setLayoutParams(params);
+		rowHeader.setBackgroundColor(resultTableHeaderColor);
+		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
+		row2.addView(rowHeader);
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
 			header.setText(String.format("$%,.2f", savingsOverYears.get(i)));

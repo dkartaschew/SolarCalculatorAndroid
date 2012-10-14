@@ -68,7 +68,6 @@ public class WizardPanel extends WizardViews {
 	private boolean haveSensors;
 	private float deviceAzimuth = 0;
 	private float devicePitch = 0;
-	private float deviceRoll = 0;
 
 	/**
 	 * Default Constructor
@@ -151,7 +150,7 @@ public class WizardPanel extends WizardViews {
 					deviceAzimuth = orientation[0]; // orientation contains:
 													// azimuth, pitch and roll
 					devicePitch = orientation[1];
-					deviceRoll = orientation[2];
+					//deviceRoll = orientation[2];
 					
 					// Convert direction from -180..0..180 to 0..360
 					if(deviceAzimuth < 0){
@@ -632,7 +631,7 @@ public class WizardPanel extends WizardViews {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-				SolarPanel panel = (SolarPanel) arg0.getItemAtPosition(arg2);
+				//SolarPanel panel = (SolarPanel) arg0.getItemAtPosition(arg2);
 				// TODO: I don't think we actually need to do anything here?
 			}
 

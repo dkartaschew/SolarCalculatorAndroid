@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anonymous.solar.shared.SolarSetup;
-import com.anonymous.solar.shared.SolarSetupException;
 
 /**
  * Wizard View for Welcome Screen

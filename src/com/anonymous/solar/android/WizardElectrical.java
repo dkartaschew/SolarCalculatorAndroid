@@ -3,11 +3,9 @@ package com.anonymous.solar.android;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -17,10 +15,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 
-import com.anonymous.solar.shared.CustomerData;
 import com.anonymous.solar.shared.SolarInverter;
 import com.anonymous.solar.shared.SolarSetup;
-import com.anonymous.solar.shared.TariffRate;
 
 /**
  * The Customer Usage Wizard Pane.

@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:layout_marginBottom="50dp"
     android:orientation="vertical"
-    android:paddingBottom="50dp" >
+    android:weightSum="1.0" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -31,13 +31,16 @@
     <LinearLayout
         android:id="@+id/layoutComparisonGraph"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:layout_height="0dip"
+        android:layout_margin="5dp"
+        android:layout_weight="0.4" />
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="0dip"
+        android:minHeight="250dp"
         android:layout_gravity="top|center_horizontal"
+        android:layout_weight="0.6"
         android:focusable="true"
         android:scrollbarAlwaysDrawVerticalTrack="false"
         android:scrollbars="horizontal|vertical" >
@@ -47,9 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:gravity="top|left" >
+            android:gravity="top|left" />
 
-        </TableLayout>
     </ScrollView>
 
 </LinearLayout>
