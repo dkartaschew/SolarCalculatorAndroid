@@ -69,13 +69,19 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			LinearLayout tabGraph = (LinearLayout) tabs.get(1).findViewById(R.id.layoutResultsGraph);
 			tabGraph.removeAllViews(); // remove old graphs
 			ArrayList<List<Double>> list = new ArrayList<List<Double>>();
-			list.add(soapResult.getSavingsOverYears());
+			ArrayList<Double> ROI = new ArrayList<Double>();
+			List<ResultsDetails> resultSet = soapResult.getResultsDetailsList();
+			int numberOfYears = resultSet.size() / 12;
+			for(int i = 0 ; i< numberOfYears; i++){
+				ROI.add(resultSet.get(i * 12).getROI());
+			}
+			list.add(ROI);
 			ArrayList<String> columns = new ArrayList<String>();
-			columns.add("Savings");
-			tabGraph.addView(new WizardResultGraph(parent, "Cumulative Savings", "Year", list, columns));
+			columns.add("ROI");
+			tabGraph.addView(new WizardResultGraph(parent, "Return on Investment", "Year", list, columns));
 			// Add our data to the table.
 			TableLayout tabResults = (TableLayout) tabs.get(2).findViewById(R.id.tableResults);
-			createTable(tabResults, soapResult.getResultsDetailsList());
+			createTable(tabResults, soapResult.getResultsDetailsList(), soapResult.getSolarSetup());
 
 			// Store our result set.
 			if (storeResults) {
@@ -101,7 +107,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 	 * @param tabResults
 	 * @param list
 	 */
-	private void createTable(TableLayout tabResults, List<ResultsDetails> resultSet) {
+	private void createTable(TableLayout tabResults, List<ResultsDetails> resultSet, SolarSetup setup) {
 		// Clear the table.
 		tabResults.removeAllViews();
 
@@ -120,6 +126,60 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		// Add our row to the table.
 		// row.setPadding(3, 3, 3, 3);
 		tabResults.addView(row);
+
+		// Fill in the data row.
+		TableRow row8 = new TableRow(parent);
+
+		// Add our data
+		row8.addView(getHeader("Old Bill (p/Mth)"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			// Determine the ROI over
+			header.setText(String.format("$%,.2f", setup.getCustomerData().getMonthlyAverageUsage() * setup.getCustomerData().getTariff11Fee()/100.00));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row8.addView(header);
+		}
+		// Add our row to the table.
+		// row2.setPadding(3, 3, 3, 3);
+		tabResults.addView(row8);
+
+		// Fill in the data row.
+		TableRow row9 = new TableRow(parent);
+
+		// Add our data
+		row9.addView(getHeader("Expected Bill (p/Mth)"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			// Determine the ROI over
+			header.setText(String.format("$%,.2f", resultSet.get(i * 12).getExpectedUtilityBill()));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row9.addView(header);
+		}
+		// Add our row to the table.
+		// row2.setPadding(3, 3, 3, 3);
+		tabResults.addView(row9);
+		
+		// Fill in the data row.
+				TableRow row10 = new TableRow(parent);
+
+				// Add our data
+				row10.addView(getHeader("Savings (p/Mth)"));
+				for (int i = 0; i < numberOfYears; i++) {
+					TextView header = new TextView(parent);
+					// Determine the ROI over
+					header.setText(String.format("$%,.2f",  (setup.getCustomerData().getMonthlyAverageUsage() * setup.getCustomerData().getTariff11Fee()/100.00) - resultSet.get(i * 12).getExpectedUtilityBill()));
+					header.setGravity(Gravity.CENTER);
+					header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+					header.setPadding(10, 10, 10, 10);
+					row10.addView(header);
+				}
+				// Add our row to the table.
+				// row2.setPadding(3, 3, 3, 3);
+				tabResults.addView(row10);
 
 		// Fill in the data row.
 		TableRow row2 = new TableRow(parent);
@@ -143,7 +203,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		TableRow row7 = new TableRow(parent);
 
 		// Add our data
-		row7.addView(getHeader("Income Generated"));
+		row7.addView(getHeader("Income Generated (p/Mth)"));
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
 			// Determine the ROI over
@@ -159,11 +219,11 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 
 		// Fill in the data row.
 		TableRow row3 = new TableRow(parent);
-		row3.addView(getHeader("Power Generated"));
+		row3.addView(getHeader("Power Generated (p/Yr)"));
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
 			// Determine the ROI over
-			header.setText(String.format("%,.2fkW", resultSet.get(i * 12).getPowerGenerated() * 12.00 / 1000.00));
+			header.setText(String.format("%,.2fkW", resultSet.get(i * 12).getPowerGenerated() / 1000.00 * 12.00));
 			header.setGravity(Gravity.CENTER);
 			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 			header.setPadding(10, 10, 10, 10);
@@ -179,13 +239,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		row4.addView(getHeader("Panel Efficiency"));
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
-			// Determine the ROI over
-			Double eff = 0.00;
-			List<Double> lEff = resultSet.get(i * 12).getSolarBanksEfficencyList();
-			for (Double bankEff : lEff) {
-				eff += bankEff;
-			}
-			header.setText(String.format("%,.2f%%", eff / 12.0));
+			header.setText(String.format("%,.2f%%", resultSet.get(i * 12).getSolarBanksEfficencyList().get(0)));
 			header.setGravity(Gravity.CENTER);
 			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 			header.setPadding(10, 10, 10, 10);
@@ -214,7 +268,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 
 		// Fill in the data row.
 		TableRow row6 = new TableRow(parent);
-		row6.addView(getHeader("Inverter Output"));
+		row6.addView(getHeader("Inverter Efficiency"));
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
 			header.setText(String.format("%,.2f%%", resultSet.get(i * 12).getInverterEfficiency()));

@@ -252,13 +252,14 @@ public class CustomerData {
 	
 	@Override
 	public String toString(){
-		return "Daily Average: " + dailyAverageUsage + "<br />"
-				+ "Hourly Average: " + hourlyAverageUsage + "<br />"
-				+ "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost) + "<br />"
-				+ "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee) + "<br />"
-				+ "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost) + "<br />"
-				+ "Tariff 13 Fee: " + String.format("$%,.2f", tariff13Fee) + "<br />"
-				+ "Feed In Fee: " + String.format("$%,.2f", feedInFee) + "<br />"
+		return "Daily Average: " + dailyAverageUsage + "kW<br />"
+				+ "Hourly Average: " + hourlyAverageUsage + "kW<br />"
+				+ "Monthly Average: " + monthlyAverageUsage + "kW<br />"
+				+ "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost/100.00) + "<br />"
+				+ "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee/100.00) + "<br />"
+				+ "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost/100.00) + "<br />"
+				+ "Tariff 13 Fee: " + String.format("$%,.2f", tariff13Fee/100.00) + "<br />"
+				+ "Feed In Fee: " + String.format("$%,.2f", feedInFee/100.00) + "<br />"
 				+ "Annual Tariff Increase: " + annualTariffIncrease + "<br />";
 	}
 	
@@ -269,13 +270,14 @@ public class CustomerData {
 			about += "<html>";
 		}
 		
-		about += "Daily Average: " + dailyAverageUsage + "<br />"
-				 + "Hourly Average: " + hourlyAverageUsage + "<br />"
-				 + "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost) + "<br />"
-				 + "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee) + "<br />"
-				 + "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost) + "<br />"
-				 + "Tariff 13 Fee: " + String.format("$%,.2f", tariff13Fee) + "<br />"
-				 + "Feed In Fee: " + String.format("$%,.2f", feedInFee) + "<br />"
+		about += "Daily Average: " + dailyAverageUsage + "kW<br />"
+				 + "Hourly Average: " + hourlyAverageUsage + "kW<br />"
+				 + "Monthly Average: " + monthlyAverageUsage + "kW<br />"
+				 + "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost/100.00) + "<br />"
+				 + "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee/100.00) + "<br />"
+				 + "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost/100.00) + "<br />"
+				 + "Tariff 13 Fee: " + String.format("$%,.2f", tariff13Fee/100.00) + "<br />"
+				 + "Feed In Fee: " + String.format("$%,.2f", feedInFee/100.00) + "<br />"
 				 + "Annual Tariff Increase: " + annualTariffIncrease + "<br />";
 		
 		if(htmlTags){

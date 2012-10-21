@@ -25,6 +25,8 @@ public class ResultsDetails {
 	@Element
 	protected Double income;
 	@Element
+	protected Double expectedUtilityBill;
+	@Element
 	protected Double ROI;
 	@Element
 	protected Double daylightHours;
@@ -210,8 +212,13 @@ public class ResultsDetails {
 		return false;
 	}
 	
-	
-	
+	public Double getExpectedUtilityBill() {
+		return expectedUtilityBill;
+	}
+
+	public void setExpectedUtilityBill(Double expectedUtilityBill) {
+		this.expectedUtilityBill = expectedUtilityBill;
+	}
 	
 	
 

@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
+import com.anonymous.solar.shared.ResultsDetails;
 import com.anonymous.solar.shared.SolarResult;
 
 public class WizardResultsComparison extends View {
@@ -116,9 +117,9 @@ public class WizardResultsComparison extends View {
 	 */
 	private void createTable(ArrayList<SolarResult> rows) {
 		tableComparison.removeAllViews();
-		
+
 		// If we have nothing to compare, then hide the table.
-		if(comparisons.size() == 0){
+		if (comparisons.size() == 0) {
 			return;
 		}
 
@@ -137,15 +138,7 @@ public class WizardResultsComparison extends View {
 		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
 		row.addView(rowHeader);
 		for (int i = 0; i < numResults; i++) {
-			TextView header = new TextView(parent);
-			header.setText(rows.get(i).getSolarSetup().getSetupName());
-			header.setGravity(Gravity.CENTER);
-			header.setTextAppearance(parent, android.R.style.TextAppearance_Small);
-			header.setPadding(5, 1, 5, 1);
-			header.setLayoutParams(params);
-			header.setBackgroundColor(resultTableHeaderColor);
-			header.setTextColor(parent.getResources().getColor(android.R.color.black));
-			row.addView(header);
+			row.addView(getHeader(rows.get(i).getSolarSetup().getSetupName()));
 		}
 		// Add our row to the table.
 		row.setPadding(1, 1, 1, 1);
@@ -153,15 +146,7 @@ public class WizardResultsComparison extends View {
 
 		// Add our annual savings
 		TableRow row2 = new TableRow(parent);
-		TextView rowHeader2 = new TextView(parent);
-		rowHeader2.setText("Annual Savings");
-		rowHeader2.setGravity(Gravity.CENTER);
-		rowHeader2.setTextAppearance(parent, android.R.style.TextAppearance_Small);
-		rowHeader2.setPadding(5, 1, 5, 1);
-		rowHeader2.setLayoutParams(params);
-		rowHeader2.setBackgroundColor(resultTableHeaderColor);
-		rowHeader2.setTextColor(parent.getResources().getColor(android.R.color.black));
-		row2.addView(rowHeader2);
+		row2.addView(getHeader("Annual Savings"));
 		for (int i = 0; i < numResults; i++) {
 			TextView header = new TextView(parent);
 			header.setText(String.format("$%,.2f", rows.get(i).getYearlySavings(1)));
@@ -174,15 +159,70 @@ public class WizardResultsComparison extends View {
 		row2.setPadding(1, 1, 1, 1);
 		tableComparison.addView(row2);
 
-		// Add our remove buttons.
+		// Add our annual savings
+		TableRow row6 = new TableRow(parent);
+		row6.addView(getHeader("Time on ROI"));
+		for (int i = 0; i < numResults; i++) {
+			TextView header = new TextView(parent);
+			String timetoROI = "~";
+			// Determine when break even
+			List<ResultsDetails> details = rows.get(i).getResultsDetailsList();
+			for(int j = 0; j < details.size(); j++){
+				if(details.get(j).getROI() > 0){
+					timetoROI  = String.format("%d", j/12);
+					break;
+				}
+			}
+			header.setText(timetoROI);
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			header.setPadding(5, 1, 5, 1);
+			row6.addView(header);
+		}
+		// Add our row to the table.
+		row6.setPadding(1, 1, 1, 1);
+		tableComparison.addView(row6);
+
+		// Add our annual savings
+		TableRow row4 = new TableRow(parent);
+		row4.addView(getHeader("Expected Bill (p/Mth)"));
+		for (int i = 0; i < numResults; i++) {
+			TextView header = new TextView(parent);
+			header.setText(String.format("$%,.2f", rows.get(i).getResultsDetailsList().get(0).getExpectedUtilityBill()));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			header.setPadding(5, 1, 5, 1);
+			row4.addView(header);
+		}
+		// Add our row to the table.
+		row4.setPadding(1, 1, 1, 1);
+		tableComparison.addView(row4);
+
+		// Add our annual savings
 		TableRow row3 = new TableRow(parent);
+		row3.addView(getHeader("Power Output (p/Yr)"));
+		for (int i = 0; i < numResults; i++) {
+			TextView header = new TextView(parent);
+			header.setText(String.format("%,.2fkW",
+					rows.get(i).getResultsDetailsList().get(0).getPowerGenerated()/ 1000.00 * 12.00));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			header.setPadding(5, 1, 5, 1);
+			row3.addView(header);
+		}
+		// Add our row to the table.
+		row3.setPadding(1, 1, 1, 1);
+		tableComparison.addView(row3);
+
+		// Add our remove buttons.
+		TableRow row5 = new TableRow(parent);
 		TextView rowHeader3 = new TextView(parent);
 		rowHeader3.setText("");
 		rowHeader3.setGravity(Gravity.CENTER);
 		rowHeader3.setPadding(5, 1, 5, 1);
 		rowHeader3.setLayoutParams(params);
 		rowHeader3.setTextColor(parent.getResources().getColor(android.R.color.black));
-		row3.addView(rowHeader3);
+		row5.addView(rowHeader3);
 		// Create our remove buttons for each column of the comparisons.
 		for (int i = 0; i < numResults; i++) {
 			Button removeButton = new Button(parent);
@@ -201,11 +241,31 @@ public class WizardResultsComparison extends View {
 				}
 			};
 			removeButton.setOnClickListener(removeButtonListener);
-			row3.addView(removeButton);
+			row5.addView(removeButton);
 		}
 		// Add our row to the table.
-		row3.setPadding(1, 1, 1, 1);
-		tableComparison.addView(row3);
+		row5.setPadding(1, 1, 1, 1);
+		tableComparison.addView(row5);
+	}
+
+	/**
+	 * Create a header cell, with correct highlights
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private TextView getHeader(String text) {
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.setMargins(1, 1, 1, 1);
+		TextView rowHeader = new TextView(parent);
+		rowHeader.setText(text);
+		rowHeader.setGravity(Gravity.CENTER);
+		rowHeader.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+		rowHeader.setPadding(5, 1, 5, 1);
+		rowHeader.setLayoutParams(params);
+		rowHeader.setBackgroundColor(resultTableHeaderColor);
+		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
+		return rowHeader;
 	}
 
 	/**
@@ -222,10 +282,17 @@ public class WizardResultsComparison extends View {
 		ArrayList<String> columns = new ArrayList<String>();
 
 		for (int i = 0; i < graphs.size(); i++) {
-			list.add(graphs.get(i).getSavingsOverYears());
+			ArrayList<Double> ROI = new ArrayList<Double>();
+			List<ResultsDetails> resultSet = graphs.get(i).getResultsDetailsList();
+			int numberOfYears = resultSet.size() / 12;
+			for (int j = 0; j < numberOfYears; j++) {
+				ROI.add(resultSet.get(j * 12).getROI());
+			}
+			list.add(ROI);
+			// list.add(graphs.get(i).getSavingsOverYears());
 			columns.add(graphs.get(i).getSolarSetup().getSetupName());
 		}
-		layoutGraph.addView(new WizardResultGraph(parent, "Cumulative Savings", "Year", list, columns));
+		layoutGraph.addView(new WizardResultGraph(parent, "Return on Investment", "Year", list, columns));
 	}
 
 }

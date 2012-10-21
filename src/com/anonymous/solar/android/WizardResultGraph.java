@@ -56,8 +56,7 @@ public class WizardResultGraph extends DemoView {
 			double cumulativeSavings = 0.0;
 			XYSeries cumulativeSavingsSeries = new XYSeries(columns.get(i));
 			for (int j = 0; j < resultSet.size(); j++) {
-				cumulativeSavings += resultSet.get(j);
-				cumulativeSavingsSeries.add(j + 1, cumulativeSavings);
+				cumulativeSavingsSeries.add(j, resultSet.get(j));
 			}
 
 			dataset.addSeries(cumulativeSavingsSeries);
@@ -77,7 +76,7 @@ public class WizardResultGraph extends DemoView {
 	 */
 	private AFreeChart createChart(XYSeriesCollection dataset) {
 
-		AFreeChart chart = ChartFactory.createXYLineChart(header, row, "Savings ($)", dataset,
+		AFreeChart chart = ChartFactory.createXYLineChart(header, row, "ROI ($)", dataset,
 				PlotOrientation.VERTICAL, true, true, false);
 
 		// get a reference to the plot for further customisation
