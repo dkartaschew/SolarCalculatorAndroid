@@ -155,7 +155,7 @@ public class DeviceLocalStorage {
 	 *            The item to remove
 	 */
 	public void deleteResult(SolarResult result) {
-		long id = result.getId();
+		long id = result.getID();
 		System.out.println("Comment deleted with id: " + id);
 		database.delete(DeviceLocalStorage.TABLE_RESULTS, DeviceLocalStorage.COLUMN_ID + " = " + id, null);
 	}
@@ -174,7 +174,7 @@ public class DeviceLocalStorage {
 		while (!cursor.isAfterLast()) {
 			SolarResult result = cursorToResult(cursor);
 			if (result != null){
-				result.setId(cursor.getLong(0));
+				result.setID(cursor.getLong(0));
 				results.add(result);
 			}
 			cursor.moveToNext();

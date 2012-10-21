@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
+@Root(strict=false)
 public class LocationData {
 
 	// @Element
@@ -17,10 +19,10 @@ public class LocationData {
 	@Element
 	protected String locationName;
 
-	@ElementList
+	@ElementList(inline=true,required=false, entry="locationWeatherData")
 	protected List<Double> locationWeatherData;
 
-	@ElementList
+	@ElementList(inline=true,required=false, entry="locationWeatherEfficiency")
 	protected List<Double> locationWeatherEfficiency;
 
 	@Element

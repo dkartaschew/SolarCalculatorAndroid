@@ -16,6 +16,7 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 import com.anonymous.solar.client.SolarCalculatorService;
+import com.anonymous.solar.shared.ResultsDetails;
 import com.anonymous.solar.shared.SolarResult;
 import com.anonymous.solar.shared.SolarSetup;
 
@@ -34,8 +35,6 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 	}
 
 	protected void onPreExecute() {
-		// this.progressDialog.setMessage("Waiting for results.");
-		// this.progressDialog.show();
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 			tabGraph.addView(new WizardResultGraph(parent, "Cumulative Savings", "Year", list, columns));
 			// Add our data to the table.
 			TableLayout tabResults = (TableLayout) tabs.get(2).findViewById(R.id.tableResults);
-			createTable(tabResults, soapResult.getSavingsOverYears());
+			createTable(tabResults, soapResult.getResultsDetailsList());
 
 			// Store our result set.
 			if (storeResults) {
@@ -97,12 +96,12 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 	}
 
 	/**
-	 * Create a table in the specified tablelayout.
+	 * Create a table in the specified table layout.
 	 * 
 	 * @param tabResults
-	 * @param savingsOverYears
+	 * @param list
 	 */
-	private void createTable(TableLayout tabResults, ArrayList<Double> savingsOverYears) {
+	private void createTable(TableLayout tabResults, List<ResultsDetails> resultSet) {
 		// Clear the table.
 		tabResults.removeAllViews();
 
@@ -112,54 +111,142 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 		params.setMargins(1, 1, 1, 1);
 
 		// Add our header columns (Year)
-		int numberOfYears = savingsOverYears.size();
-		
-		TextView rowHeader3 = new TextView(parent);
-		rowHeader3.setText("");
-		rowHeader3.setGravity(Gravity.CENTER);
-		rowHeader3.setPadding(5, 1, 5, 1);
-		rowHeader3.setLayoutParams(params);
-		rowHeader3.setTextColor(parent.getResources().getColor(android.R.color.black));
-		row.addView(rowHeader3);
+		int numberOfYears = resultSet.size() / 12;
+
+		row.addView(getHeader(""));
 		for (int i = 0; i < numberOfYears; i++) {
-			TextView header = new TextView(parent);
-			header.setText(String.format("Year %d", i + 1));
-			header.setGravity(Gravity.CENTER);
-			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
-			header.setPadding(1, 1, 1, 1);
-			header.setLayoutParams(params);
-			header.setBackgroundColor(resultTableHeaderColor);
-			header.setTextColor(parent.getResources().getColor(android.R.color.black));
-			row.addView(header);
+			row.addView(getHeader(String.format("Year %d", i + 1)));
 		}
 		// Add our row to the table.
-		row.setPadding(3, 3, 3, 3);
+		// row.setPadding(3, 3, 3, 3);
 		tabResults.addView(row);
 
 		// Fill in the data row.
 		TableRow row2 = new TableRow(parent);
 
 		// Add our data
-		TextView rowHeader = new TextView(parent);
-		rowHeader.setText("Annual Savings");
-		rowHeader.setGravity(Gravity.CENTER);
-		rowHeader.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
-		rowHeader.setPadding(5, 1, 5, 1);
-		rowHeader.setLayoutParams(params);
-		rowHeader.setBackgroundColor(resultTableHeaderColor);
-		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
-		row2.addView(rowHeader);
+		row2.addView(getHeader("ROI"));
 		for (int i = 0; i < numberOfYears; i++) {
 			TextView header = new TextView(parent);
-			header.setText(String.format("$%,.2f", savingsOverYears.get(i)));
+			// Determine the ROI over
+			header.setText(String.format("$%,.2f", resultSet.get(i * 12).getROI()));
 			header.setGravity(Gravity.CENTER);
 			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
 			header.setPadding(10, 10, 10, 10);
 			row2.addView(header);
 		}
 		// Add our row to the table.
-		row2.setPadding(3, 3, 3, 3);
+		// row2.setPadding(3, 3, 3, 3);
 		tabResults.addView(row2);
+
+		// Fill in the data row.
+		TableRow row7 = new TableRow(parent);
+
+		// Add our data
+		row7.addView(getHeader("Income Generated"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			// Determine the ROI over
+			header.setText(String.format("$%,.2f", resultSet.get(i * 12).getIncome()));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row7.addView(header);
+		}
+		// Add our row to the table.
+		// row2.setPadding(3, 3, 3, 3);
+		tabResults.addView(row7);
+
+		// Fill in the data row.
+		TableRow row3 = new TableRow(parent);
+		row3.addView(getHeader("Power Generated"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			// Determine the ROI over
+			header.setText(String.format("%,.2fkW", resultSet.get(i * 12).getPowerGenerated() * 12.00 / 1000.00));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row3.addView(header);
+		}
+		// Add our row to the table.
+		// row3.setPadding(3, 3, 3, 3);
+
+		tabResults.addView(row3);
+
+		// Fill in the data row.
+		TableRow row4 = new TableRow(parent);
+		row4.addView(getHeader("Panel Efficiency"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			// Determine the ROI over
+			Double eff = 0.00;
+			List<Double> lEff = resultSet.get(i * 12).getSolarBanksEfficencyList();
+			for (Double bankEff : lEff) {
+				eff += bankEff;
+			}
+			header.setText(String.format("%,.2f%%", eff / 12.0));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row4.addView(header);
+		}
+		// Add our row to the table.
+		// row4.setPadding(3, 3, 3, 3);
+
+		tabResults.addView(row4);
+
+		// Fill in the data row.
+		TableRow row5 = new TableRow(parent);
+		row5.addView(getHeader("Inverter Output"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			header.setText(String.format("%,.2fW", resultSet.get(i * 12).getinverterOutput()));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row5.addView(header);
+		}
+		// Add our row to the table.
+		// row5.setPadding(3, 3, 3, 3);
+
+		tabResults.addView(row5);
+
+		// Fill in the data row.
+		TableRow row6 = new TableRow(parent);
+		row6.addView(getHeader("Inverter Output"));
+		for (int i = 0; i < numberOfYears; i++) {
+			TextView header = new TextView(parent);
+			header.setText(String.format("%,.2f%%", resultSet.get(i * 12).getInverterEfficiency()));
+			header.setGravity(Gravity.CENTER);
+			header.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+			header.setPadding(10, 10, 10, 10);
+			row6.addView(header);
+		}
+		// Add our row to the table.
+		// row6.setPadding(3, 3, 3, 3);
+
+		tabResults.addView(row6);
+	}
+
+	/**
+	 * Create a header cell, with correct highlights
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private TextView getHeader(String text) {
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.setMargins(1, 1, 1, 1);
+		TextView rowHeader = new TextView(parent);
+		rowHeader.setText(text);
+		rowHeader.setGravity(Gravity.CENTER);
+		rowHeader.setTextAppearance(parent, android.R.style.TextAppearance_Medium);
+		rowHeader.setPadding(5, 1, 5, 1);
+		rowHeader.setLayoutParams(params);
+		rowHeader.setBackgroundColor(resultTableHeaderColor);
+		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
+		return rowHeader;
 	}
 
 }

@@ -4,6 +4,7 @@
 package com.anonymous.solar.shared;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 import com.anonymous.solar.shared.SolarPanelsException;
 
@@ -13,6 +14,7 @@ import com.anonymous.solar.shared.SolarPanelsException;
  * @author 07627505 Darran Kartaschew
  * @version 1.0
  */
+@Root(name="solarPanels", strict=false)
 public class SolarPanels {
 
 	@Element

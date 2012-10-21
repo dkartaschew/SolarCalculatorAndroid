@@ -164,7 +164,7 @@ public class WizardResultsComparison extends View {
 		row2.addView(rowHeader2);
 		for (int i = 0; i < numResults; i++) {
 			TextView header = new TextView(parent);
-			header.setText(String.format("$%,.2f", rows.get(i).getYearlySavings()));
+			header.setText(String.format("$%,.2f", rows.get(i).getYearlySavings(1)));
 			header.setGravity(Gravity.CENTER);
 			header.setTextAppearance(parent, android.R.style.TextAppearance_Small);
 			header.setPadding(5, 1, 5, 1);

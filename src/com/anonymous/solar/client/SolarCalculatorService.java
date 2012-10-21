@@ -1,10 +1,14 @@
 package com.anonymous.solar.client;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -78,12 +82,14 @@ public class SolarCalculatorService {
 		String text = null;
 		try {
 			text = readFile(parent.getFilesDir().getPath() + "/Request.xml");
+			text = text.replaceAll("<solarSetup>", "<arg0>");
+			text = text.replaceAll("</solarSetup>", "</arg0>");
 			text = text + "<arg1>" + ((MainActivity) parent).getReportYears().toString() + "</arg1>\n"; // Add
 																										// our
 																										// second
 																										// argument.
-			// System.out.println("--------------------- Simple ------------------------");
-			// System.out.println(text);
+			System.out.println("--------------------- Simple ------------------------");
+			System.out.println(text);
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 			return null;
@@ -131,37 +137,22 @@ public class SolarCalculatorService {
 
 			InputStream is = connection.getInputStream();
 
-			XmlPullParser xp = new KXmlParser();
-			xp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true);
-			xp.setInput(is, null);
+			// Get our result string, and trim SOAP envelope from the string.
+			//String resultStr = slurp(is, 64);
+			String resultStr = readStream(is);
+			resultStr = resultStr.substring(resultStr.indexOf("<return>") + 8);
+			resultStr = resultStr.substring(0, resultStr.indexOf("</return>"));
+			resultStr = resultStr.replaceAll("><", ">\n<");
+			resultStr = "<solarResult>\n" + resultStr + "</solarResult>\n";
 
-			// Back to using KSOAP for handling our request.
-			envelope.parse(xp);
-			// Get our returned objects and count.
-			SoapObject response = (SoapObject) envelope.getResponse();
-			int responseCount = response.getPropertyCount();
-			System.out.println(envelope.bodyIn.toString());
-			// Unmarshall the element.
-			// <xs:element name="dailySavings" type="xs:double"/>
-			// <xs:element name="monthlySavings" type="xs:double"/>
-			// <xs:element name="savingsOverYears" type="xs:double"
-			// nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-			// <xs:element name="solarSetup" type="tns:solarSetup"
-			// minOccurs="0"/>
-			// <xs:element name="yearlySavings" type="xs:double"/>
-			result.setDailySavings(Double.parseDouble(response.getPrimitivePropertyAsString("dailySavings")));
-			result.setMonthlySavings(Double.parseDouble(response.getPrimitivePropertyAsString("monthlySavings")));
-			result.setYearlySavings(Double.parseDouble(response.getPrimitivePropertyAsString("yearlySavings")));
+			System.out.println("--------------------- Result ------------------------");
+			System.out.println(resultStr);
 
-			// read in the savingOverYears.
-			ArrayList<Double> savings = new ArrayList<Double>();
-			int years = ((MainActivity) parent).getReportYears();
-			for (int i = 0; i < years; i++) {
-				SoapPrimitive weatherInformation = (SoapPrimitive) response.getProperty(i + 2);
-				Double item = Double.parseDouble(weatherInformation.toString());
-				savings.add(item);
-			}
-			result.setSavingsOverYears(savings);
+			// Now use SimpleXML to unmarshall this sucker!
+			SolarResult resultXML = new SolarResult();
+			Serializer serial = new Persister();
+			resultXML = serial.read(SolarResult.class, resultStr, false);
+			result = resultXML;
 
 		} catch (Exception e) {
 			if (envelope != null && envelope.bodyIn != null) {
@@ -196,6 +187,49 @@ public class SolarCalculatorService {
 		} finally {
 			scanner.close();
 		}
+	}
+
+	/**
+	 * read string from inoput stream..
+	 * 
+	 * @param is
+	 * @param bufferSize
+	 * @return
+	 */
+	public String slurp(final InputStream is, final int bufferSize) {
+		final char[] buffer = new char[bufferSize];
+		final StringBuilder out = new StringBuilder();
+		try {
+			final Reader in = new InputStreamReader(is, "UTF-8");
+			try {
+				for (;;) {
+					int rsz = in.read(buffer, 0, buffer.length);
+					if (rsz < 0)
+						break;
+					out.append(buffer, 0, rsz);
+				}
+			} finally {
+				in.close();
+			}
+		} catch (UnsupportedEncodingException ex) {
+			/* ... */
+		} catch (IOException ex) {
+			/* ... */
+		}
+		return out.toString();
+	}
+
+	public String readStream(final InputStream in) throws IOException {
+		InputStreamReader is = new InputStreamReader(in);
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = new BufferedReader(is);
+		String read = br.readLine();
+
+		while (read != null) {
+			sb.append(read);
+			read = br.readLine();
+		}
+		return sb.toString();
 	}
 
 }

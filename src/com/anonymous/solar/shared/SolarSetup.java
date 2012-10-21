@@ -17,7 +17,7 @@ import org.simpleframework.xml.Root;
  * @author 07627505 Darran Kartaschew
  * @version 1.0
  */
-@Root(name="arg0")
+@Root(strict=false)
 public class SolarSetup {
 
 	@Element

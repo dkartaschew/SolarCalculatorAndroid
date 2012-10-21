@@ -1,7 +1,9 @@
 package com.anonymous.solar.shared;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root(name="customerData", strict=false)
 public class CustomerData {
 	
 	@Element

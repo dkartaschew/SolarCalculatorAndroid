@@ -157,7 +157,7 @@ public class WizardUsage extends WizardViews {
 						"Please enter at least 1 valid amount.");
 				return false;
 			}
-			if (dailyAmount > hourlyAmount || hourlyAmount > monthlyAmount) {
+			if (dailyAmount < hourlyAmount || hourlyAmount > monthlyAmount) {
 				new SolarAlertDialog().displayAlert(parent, "Invalid Input",
 						"Usage values don't appear correct.");
 				return false;

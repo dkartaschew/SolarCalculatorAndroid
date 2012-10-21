@@ -4,6 +4,7 @@
 package com.anonymous.solar.shared;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 
 /**
@@ -14,6 +15,7 @@ import org.simpleframework.xml.Element;
  * @version 1.0
  */
 
+@Root(strict=false)
 public class SolarPanel implements Comparable<SolarPanel>{
 	
 	//@Element
