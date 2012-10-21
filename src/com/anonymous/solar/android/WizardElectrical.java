@@ -214,7 +214,7 @@ public class WizardElectrical extends WizardViews {
 		}
 		try {
 			wireEff = Double.parseDouble(wiringEfficiency.getText().toString());
-			if (wireEff > 100.00 && validateInput) {
+			if ((wireEff < 0 || wireEff > 100.00) && validateInput) {
 				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Wire Efficiency must be between 0.00% and 100.00%");
 				return false;
 			}
