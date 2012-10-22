@@ -110,7 +110,7 @@ public class MainActivity extends MapActivity {
 	protected void onStart() {
 		super.onStart();
 		// Determine if we have a network connection?
-		
+		checkOnline();
 		// super.onStart();
 	}
 
@@ -613,20 +613,16 @@ public class MainActivity extends MapActivity {
 	public void checkOnline(){
 		if (!isOnline()) {
 			// Display a warning to the user.
-
-			AlertDialog dialog = new AlertDialog.Builder(this.getApplicationContext()).create();
-			dialog.setTitle("Network Connectivity Error");
-			dialog.setMessage("There appears to be no network connectivity. Please enable a network connection to use this application.");
+			AlertDialog dialog = new AlertDialog.Builder(this).create();
+			dialog.setTitle("No Internet Connectivity Detected");
+			dialog.setMessage("Please enable Internet Connectivity before continuing. Click OK to exit the application");
 			dialog.setButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-
-				}
-			});
-
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   buttonCloseEvent();
+			           }
+			       });
+			
 			dialog.show();
-			while (dialog.isShowing()) {
-			}
-			buttonCloseEvent();
 		}
 	}
 }
