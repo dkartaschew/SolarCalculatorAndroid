@@ -43,11 +43,11 @@
 	
 	<string name="tariffTitle">Tariff Rates</string>
 	<string name="tariffDefined">Predefined Tariffs</string>
-	<string name="tariff11Cost">Tariff 11 Cost</string>
-	<string name="tariff33Cost">Tariff 33 Cost</string>
-	<string name="tariff11Fee">Tariff 11 Fee</string>
-	<string name="tariff33Fee">Tariff 33 Fee</string>
-	<string name="tariffFeedIn">Feed in Fee</string>
+	<string name="tariff11Cost">Tariff 11 Cost (cents)</string>
+	<string name="tariff33Cost">Tariff 33 Cost (cents)</string>
+	<string name="tariff11Fee">Tariff 11 Fee (cents)</string>
+	<string name="tariff33Fee">Tariff 33 Fee (cents)</string>
+	<string name="tariffFeedIn">Feed in Fee (cents)</string>
 	<string name="tariffIncrease">Annual Tariff Increase</string>
 	
 	<string name="inverterTitle">Electrical Setup</string>

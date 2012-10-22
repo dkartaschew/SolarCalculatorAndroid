@@ -252,9 +252,9 @@ public class CustomerData {
 	
 	@Override
 	public String toString(){
-		return "Daily Average: " + dailyAverageUsage + "kW<br />"
-				+ "Hourly Average: " + hourlyAverageUsage + "kW<br />"
-				+ "Monthly Average: " + monthlyAverageUsage + "kW<br />"
+		return "Daily Average: " + String.format("%,.2f", dailyAverageUsage) + "kW<br />"
+				+ "Hourly Average: " +String.format("%,.2f",  hourlyAverageUsage) + "kW<br />"
+				+ "Monthly Average: " + String.format("%,.2f", monthlyAverageUsage) + "kW<br />"
 				+ "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost/100.00) + "<br />"
 				+ "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee/100.00) + "<br />"
 				+ "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost/100.00) + "<br />"
@@ -270,9 +270,9 @@ public class CustomerData {
 			about += "<html>";
 		}
 		
-		about += "Daily Average: " + dailyAverageUsage + "kW<br />"
-				 + "Hourly Average: " + hourlyAverageUsage + "kW<br />"
-				 + "Monthly Average: " + monthlyAverageUsage + "kW<br />"
+		about += "Daily Average: " + String.format("%,.2f", dailyAverageUsage) + "kW<br />"
+				 + "Hourly Average: " + String.format("%,.2f", hourlyAverageUsage) + "kW<br />"
+				 + "Monthly Average: " + String.format("%,.2f", monthlyAverageUsage) + "kW<br />"
 				 + "Tariff 11 Cost: " +  String.format("$%,.2f", tariff11Cost/100.00) + "<br />"
 				 + "Tariff 11 Fee: " + String.format("$%,.2f", tariff11Fee/100.00) + "<br />"
 				 + "Tariff 13 Cost: " +  String.format("$%,.2f", tariff13Cost/100.00) + "<br />"

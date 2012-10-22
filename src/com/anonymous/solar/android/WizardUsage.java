@@ -79,7 +79,7 @@ public class WizardUsage extends WizardViews {
 		});
 
 		// Set the handler for setting the other fields when the user leaves the
-				// hourly kWh input field;
+		// hourly kWh input field;
 		daytime.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -101,7 +101,7 @@ public class WizardUsage extends WizardViews {
 
 			}
 		});
-		
+
 		// Set the handler for setting the other fields when the user leaves the
 		// monthly kWh input field;
 		monthly.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -133,9 +133,9 @@ public class WizardUsage extends WizardViews {
 		SolarSetup global = parent.getSolarSetup();
 		CustomerData customer = global.getCustomerData();
 		if (customer != null) {
-			daily.setText(customer.getDailyAverageUsage().toString());
-			daytime.setText(customer.getHourlyAverageUsage().toString());
-			monthly.setText(customer.getMonthlyAverageUsage().toString());
+			daily.setText(String.format("%.2f", customer.getDailyAverageUsage()));
+			daytime.setText(String.format("%.2f", customer.getHourlyAverageUsage()));
+			monthly.setText(String.format("%.2f", customer.getMonthlyAverageUsage()));
 		}
 		return true;
 	}
@@ -151,18 +151,34 @@ public class WizardUsage extends WizardViews {
 		double monthlyAmount = Double.parseDouble(monthly.getText().toString());
 
 		if (validateInput) {
-			if (dailyAmount <= 0.0 && hourlyAmount <= 0.0
-					&& monthlyAmount <= 0.0) {
-				new SolarAlertDialog().displayAlert(parent, "Missing Input",
-						"Please enter at least 1 valid amount.");
+			if (dailyAmount <= 0.0 && hourlyAmount <= 0.0 && monthlyAmount <= 0.0) {
+				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter at least 1 valid amount.");
 				return false;
 			}
 			if (dailyAmount < hourlyAmount || hourlyAmount > monthlyAmount) {
-				new SolarAlertDialog().displayAlert(parent, "Invalid Input",
-						"Usage values don't appear correct.");
+				new SolarAlertDialog().displayAlert(parent, "Invalid Input", "Usage values don't appear correct.");
 				return false;
 			}
 		}
+		// Get our current focused handlers...
+		if (daily.isFocused()) {
+			// populate the other values.
+			if (dailyAmount != 0.0) {
+				hourlyAmount = dailyAmount / 24.0;
+				monthlyAmount = dailyAmount * 30.0;
+			}
+		} else if (daytime.isFocused()) {
+			if (hourlyAmount != 0.0) {
+				dailyAmount = hourlyAmount * 24.0;
+				monthlyAmount = dailyAmount * 30.0;
+			}
+		} else if (monthly.isFocused()) {
+			if (monthlyAmount != 0.0) {
+				dailyAmount = monthlyAmount / 30.0;
+				hourlyAmount = dailyAmount / 24.0;
+			}
+		}
+
 		if (dailyAmount > 0.0) {
 			try {
 				customer.setDailyAverageUsage(dailyAmount);
