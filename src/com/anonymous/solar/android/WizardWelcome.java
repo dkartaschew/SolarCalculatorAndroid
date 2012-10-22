@@ -13,6 +13,8 @@ public class WizardWelcome extends WizardViews {
 	
 	// Our default layout.
 	private static int layout = R.layout.wizard_start;
+	
+	private MainActivity parent;
 
 	/**
 	 * Default Constructor
@@ -22,7 +24,7 @@ public class WizardWelcome extends WizardViews {
 		// Set the layout.
 		setView(parent, layout);
 		
-	    // Add event handlers for this layout.
+	    this.parent = parent;
 	}
 
 	/*
@@ -43,7 +45,7 @@ public class WizardWelcome extends WizardViews {
 	 */
 	@Override
 	public boolean callbackDispose(boolean validateInput) {
-		// TODO Auto-generated method stub
+		parent.checkOnline();
 		return true;
 	}
 
