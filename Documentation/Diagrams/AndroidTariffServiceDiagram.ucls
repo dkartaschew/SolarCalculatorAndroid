@@ -1,0 +1,104 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="JPEG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.android.WizardTariff" 
+    project="SolarCalculatorAndroid" file="/SolarCalculatorAndroid/src/com/anonymous/solar/android/WizardTariff.java" 
+    binary="false">    
+    <position height="51" width="189" x="162" y="23"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.android.WizardTariffSetupTariff" 
+    project="SolarCalculatorAndroid" 
+    file="/SolarCalculatorAndroid/src/com/anonymous/solar/android/WizardTariffSetupTariff.java" binary="false">    
+    <position height="51" width="216" x="109" y="144"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.client.TariffInformationService" 
+    project="SolarCalculatorAndroid" 
+    file="/SolarCalculatorAndroid/src/com/anonymous/solar/client/TariffInformationService.java" binary="false">    
+    <position height="51" width="179" x="155" y="285"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.shared.TariffRate" 
+    project="SolarCalculatorAndroid" file="/SolarCalculatorAndroid/src/com/anonymous/solar/shared/TariffRate.java" 
+    binary="false">    
+    <position height="51" width="227" x="446" y="189"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.shared.TariffRateException" 
+    project="SolarCalculatorAndroid" 
+    file="/SolarCalculatorAndroid/src/com/anonymous/solar/shared/TariffRateException.java" binary="false">    
+    <position height="51" width="154" x="495" y="293"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.android.SolarAlertDialog" 
+    project="SolarCalculatorAndroid" 
+    file="/SolarCalculatorAndroid/src/com/anonymous/solar/android/SolarAlertDialog.java" binary="false">    
+    <position height="51" width="231" x="453" y="41"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="com.anonymous.solar.shared.CustomerData" 
+    project="SolarCalculatorAndroid" file="/SolarCalculatorAndroid/src/com/anonymous/solar/shared/CustomerData.java" 
+    binary="false">    
+    <position height="51" width="199" x="-75" y="26"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
