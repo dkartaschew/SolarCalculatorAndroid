@@ -121,7 +121,7 @@ public class WizardResultsGetResults extends AsyncTask<SolarSetup, Void, SolarRe
 
 		row.addView(getHeader(""));
 		for (int i = 0; i < numberOfYears; i++) {
-			row.addView(getHeader(String.format("Year %d", i + 1)));
+			row.addView(getHeader(String.format("Year %d", i)));
 		}
 		// Add our row to the table.
 		// row.setPadding(3, 3, 3, 3);

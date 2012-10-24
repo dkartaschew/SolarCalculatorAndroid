@@ -119,14 +119,14 @@ public class WizardElectrical extends WizardViews {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// record the values
-				try{
+				try {
 					localInverter.setInverterCost(Double.parseDouble(cost.getText().toString()));
 					localInverter.setInverterRRP(Double.parseDouble(rrp.getText().toString()));
 					localInverter.setInverterWattage(Double.parseDouble(wattage.getText().toString()));
 					localInverter.setInverterEfficiency(Double.parseDouble(eff.getText().toString()));
 					localInverter.setInverterLossYear(Double.parseDouble(effLoss.getText().toString()));
 					localInverter.setInverterLifeYears(Integer.parseInt(life.getText().toString()));
-				} catch (Exception e){
+				} catch (Exception e) {
 					// kill the exception.
 				}
 				inverterDetails.setText(localInverter.toDetailsString());
@@ -178,7 +178,11 @@ public class WizardElectrical extends WizardViews {
 		SolarSetup global = parent.getSolarSetup();
 		localInverter = global.getInverter();
 		if (localInverter != null && inverters != null) {
-			definedInverters.setSelection(inverters.indexOf(localInverter));
+			try {
+				definedInverters.setSelection(inverters.indexOf(localInverter));
+			} catch (Exception e) {
+				// Kill it, as the local inverter may be different.
+			}
 		}
 		Double wireLength = global.getWireLength();
 		if (wireLength != null) {
@@ -215,13 +219,15 @@ public class WizardElectrical extends WizardViews {
 		try {
 			wireEff = Double.parseDouble(wiringEfficiency.getText().toString());
 			if ((wireEff < 0 || wireEff > 100.00) && validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Wire Efficiency must be between 0.00% and 100.00%");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
+						"Wire Efficiency must be between 0.00% and 100.00%");
 				return false;
 			}
 		} catch (Exception e) {
 			wireEff = 0.00;
 			if (validateInput) {
-				new SolarAlertDialog().displayAlert(parent, "Missing Input", "Please enter a wire efficiency between 0.00% and 100%");
+				new SolarAlertDialog().displayAlert(parent, "Missing Input",
+						"Please enter a wire efficiency between 0.00% and 100%");
 				return false;
 			}
 		}
