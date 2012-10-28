@@ -154,7 +154,6 @@
             </SlidingDrawer>
         </LinearLayout>
             
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/locationLayoutMap"
