@@ -13,15 +13,22 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TableRow.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.SlidingDrawer;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anonymous.solar.shared.LocationData;
@@ -43,6 +50,7 @@ public class WizardLocation extends WizardViews {
 
 	// Our default layout.
 	private static int layout = R.layout.wizard_location;
+	final private static int resultTableHeaderColor = 0xffcccccc;
 
 	// Layout widgets.
 	private EditText name;
@@ -55,6 +63,9 @@ public class WizardLocation extends WizardViews {
 	private boolean spinnerMapInitialised = false;
 	private ImageButton findLocation;
 	private ImageButton buttonGPS;
+
+	private ImageButton handle;
+	private SlidingDrawer drawer;
 
 	// Reference to the parent view.
 	private MainActivity parent;
@@ -90,6 +101,8 @@ public class WizardLocation extends WizardViews {
 		definedLocations = (Spinner) parent.findViewById(R.id.spinnerLocationPredefined);
 		findLocation = (ImageButton) parent.findViewById(R.id.buttonFindLocation);
 		buttonGPS = (ImageButton) parent.findViewById(R.id.buttonLocationGPS);
+		handle = (ImageButton) parent.findViewById(R.id.handle);
+		drawer = (SlidingDrawer) parent.findViewById(R.id.slidingDrawer1);
 
 		// Setup the map
 		mapView = (MapView) parent.findViewById(R.id.mapView);
@@ -110,6 +123,36 @@ public class WizardLocation extends WizardViews {
 
 		// setup find location button.
 		setupFindLocation();
+
+		// Setup the sliding drawer.
+		setupDraw();
+	}
+
+	/**
+	 * Add our handlers to the drawer.
+	 */
+	private void setupDraw() {
+		SlidingDrawer.OnDrawerCloseListener closeDraw = new SlidingDrawer.OnDrawerCloseListener() {
+
+			@Override
+			public void onDrawerClosed() {
+				// change the icon on the draw handle.
+				handle.setImageResource(R.drawable.arrow_up_float);
+			}
+
+		};
+		drawer.setOnDrawerCloseListener(closeDraw);
+
+		SlidingDrawer.OnDrawerOpenListener openDraw = new SlidingDrawer.OnDrawerOpenListener() {
+
+			@Override
+			public void onDrawerOpened() {
+				// TODO Auto-generated method stub
+				handle.setImageResource(R.drawable.arrow_down_float);
+			}
+
+		};
+		drawer.setOnDrawerOpenListener(openDraw);
 	}
 
 	/**
@@ -378,6 +421,7 @@ public class WizardLocation extends WizardViews {
 		} else {
 			locationData = new LocationData();
 		}
+		updateWeather();
 		return true;
 	}
 
@@ -474,6 +518,79 @@ public class WizardLocation extends WizardViews {
 		mapView.invalidate();
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
+		updateWeather();
+	}
+
+	private void updateWeather() {
+		String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+		// Get our draw
+		TableLayout content = (TableLayout) parent.findViewById(R.id.weathercontenttab);
+		content.removeAllViews(); // remove all previous tables.
+
+		// Create our own table.
+
+		// Generate the header row.
+		TableRow row = new TableRow(parent);
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.setMargins(1, 1, 1, 1);
+
+		TextView head = new TextView(parent);
+		head.setText("           ");
+		head.setGravity(Gravity.CENTER);
+		head.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+		head.setPadding(3, 3, 3, 3);
+		row.addView(head);
+
+		
+		row.addView(getHeader("Cloudy Days"));
+		row.addView(getHeader("Eff. Loss"));
+		// Add our row to the table.
+		content.addView(row);
+
+		// Add our 12 months of data.
+		
+		for(int i = 0; i < 12; i++){
+			TableRow rowdata = new TableRow(parent);
+			rowdata.addView(getHeader(months[i]));
+			
+			TextView days = new TextView(parent);
+			days.setText(locationData.getLocationWeatherData().get(i).toString());
+			days.setGravity(Gravity.CENTER);
+			days.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			days.setPadding(3, 3, 3, 3);
+			rowdata.addView(days);
+			
+			TextView eff = new TextView(parent);
+			eff.setText(String.format("%,.2f%%", locationData.getLocationWeatherEfficiency().get(i)));
+			eff.setGravity(Gravity.CENTER);
+			eff.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+			eff.setPadding(3, 3, 3, 3);
+			rowdata.addView(eff);
+			
+			content.addView(rowdata);
+		}
+		
+	}
+
+	/**
+	 * Create a header cell, with correct highlights
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private TextView getHeader(String text) {
+		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.setMargins(1, 1, 1, 1);
+		TextView rowHeader = new TextView(parent);
+		rowHeader.setText(text);
+		rowHeader.setGravity(Gravity.CENTER);
+		rowHeader.setTextAppearance(parent, android.R.style.TextAppearance_Small);
+		rowHeader.setPadding(5, 1, 5, 1);
+		rowHeader.setLayoutParams(params);
+		rowHeader.setBackgroundColor(resultTableHeaderColor);
+		rowHeader.setTextColor(parent.getResources().getColor(android.R.color.black));
+		return rowHeader;
 	}
 
 }
